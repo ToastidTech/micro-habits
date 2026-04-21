@@ -8,6 +8,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Micro Habits — Daily Wellness Rituals</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="icons/icon-96.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Micro Habits">
+<meta name="application-name" content="Micro Habits">
+<meta name="msapplication-TileImage" content="icons/icon-144.png">
+<meta name="msapplication-TileColor" content="#1a2e1a">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -690,6 +702,179 @@
 
   /* Active dots */
   .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--fern); display: inline-block; }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 400;
+    background: rgba(10, 20, 10, 0.88);
+    backdrop-filter: blur(16px);
+    align-items: flex-end;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal-sheet {
+    width: 100%; max-width: 430px;
+    background: linear-gradient(175deg, #243824, #1a2e1a);
+    border: 1px solid rgba(106,171,126,0.18);
+    border-bottom: none;
+    border-radius: 28px 28px 0 0;
+    padding: 12px 24px 40px;
+    animation: slideUp 0.38s cubic-bezier(0.32,0.72,0,1);
+    max-height: 92dvh;
+    overflow-y: auto;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-handle {
+    width: 40px; height: 4px; border-radius: 2px;
+    background: rgba(106,171,126,0.25);
+    margin: 8px auto 20px;
+  }
+
+  .modal-icon { font-size: 44px; text-align: center; margin-bottom: 12px; }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; color: var(--warm-white);
+    text-align: center; margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .modal-sub {
+    font-size: 14px; color: var(--mist);
+    text-align: center; line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  /* Form */
+  .form-group { margin-bottom: 14px; }
+
+  .form-label {
+    display: block; font-size: 11px;
+    color: var(--mist); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 7px; font-weight: 500;
+  }
+
+  .form-input {
+    width: 100%;
+    background: rgba(45,74,45,0.35);
+    border: 1px solid rgba(106,171,126,0.2);
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 15px; color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .form-input::placeholder { color: rgba(168,197,160,0.4); }
+  .form-input:focus {
+    border-color: rgba(106,171,126,0.5);
+    background: rgba(74,124,89,0.2);
+  }
+
+  .form-optional {
+    font-size: 11px; color: rgba(168,197,160,0.5);
+    margin-left: 6px; font-style: italic;
+  }
+
+  .form-submit {
+    width: 100%; padding: 15px;
+    background: var(--fern); color: var(--forest);
+    border: none; border-radius: 16px;
+    font-size: 15px; font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; margin-top: 8px;
+    box-shadow: 0 4px 24px rgba(106,171,126,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .form-submit:active { transform: scale(0.98); }
+  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .form-legal {
+    font-size: 11px; color: rgba(168,197,160,0.45);
+    text-align: center; margin-top: 12px; line-height: 1.5;
+  }
+
+  .modal-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 18px 0;
+  }
+  .modal-divider::before, .modal-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(106,171,126,0.15);
+  }
+  .modal-divider span { font-size: 11px; color: var(--mist); white-space: nowrap; }
+
+  /* Premium modal specifics */
+  .premium-features {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .premium-feature {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(45,74,45,0.25);
+    border: 1px solid rgba(106,171,126,0.1);
+    border-radius: 12px; padding: 12px 14px;
+  }
+
+  .pf-icon { font-size: 20px; flex-shrink: 0; }
+  .pf-text { font-size: 13px; color: var(--cream); }
+  .pf-text strong { color: var(--warm-white); display: block; font-size: 13px; margin-bottom: 1px; }
+
+  .price-block {
+    background: rgba(200,169,110,0.1);
+    border: 1px solid rgba(200,169,110,0.25);
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .price-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; color: var(--warm-white); font-weight: 700;
+    line-height: 1;
+  }
+
+  .price-period { font-size: 13px; color: var(--mist); margin-top: 4px; }
+  .price-note { font-size: 11px; color: var(--gold); margin-top: 6px; }
+
+  .premium-cta-btn {
+    width: 100%; padding: 15px;
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--forest); border: none; border-radius: 16px;
+    font-size: 15px; font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; margin-bottom: 12px;
+    box-shadow: 0 4px 24px rgba(200,169,110,0.3);
+    transition: transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .premium-cta-btn:active { transform: scale(0.98); }
+
+  .modal-close-link {
+    display: block; text-align: center;
+    font-size: 13px; color: var(--mist);
+    cursor: pointer; padding: 8px;
+    transition: color 0.2s;
+  }
+  .modal-close-link:hover { color: var(--cream); }
+
+  /* Error state */
+  .form-input.error { border-color: rgba(212,100,100,0.5); }
+  .form-error-msg { font-size: 11px; color: #e07070; margin-top: 5px; display: none; }
+  .form-error-msg.show { display: block; }
 </style>
 </head>
 <body>
@@ -755,7 +940,7 @@
           <div class="premium-title">✨ Unlock Premium</div>
           <div class="premium-sub">50+ rituals, custom routines, sleep tracking & more</div>
         </div>
-        <button class="premium-cta">$6.99/mo</button>
+        <button class="premium-cta" onclick="showPremiumModal()">$6.99/mo</button>
       </div>
 
     </div>
@@ -990,9 +1175,104 @@
     </button>
   </nav>
 
-</div>
 
-<!-- Completion overlay -->
+</div><!-- /app -->
+
+  <!-- ══ LEAD CAPTURE MODAL (Freemium Gate) ══ -->
+  <div class="modal-overlay" id="lead-modal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-icon">🌿</div>
+      <div class="modal-title">Welcome to<br>Micro Habits</div>
+      <div class="modal-sub">5 minutes a day. Real change over time.<br>Enter your info to start your free journey.</div>
+
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" id="lead-name" type="text" placeholder="First name" autocomplete="given-name">
+        <div class="form-error-msg" id="lead-name-err">Please enter your name</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" id="lead-email" type="email" placeholder="you@example.com" autocomplete="email">
+        <div class="form-error-msg" id="lead-email-err">Please enter a valid email</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone <span class="form-optional">optional</span></label>
+        <input class="form-input" id="lead-phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel">
+      </div>
+
+      <button class="form-submit" id="lead-submit-btn" onclick="submitLead()">
+        🌱 Start for Free
+      </button>
+
+      <div class="form-legal">
+        By continuing you agree to receive occasional wellness tips<br>
+        from Toastid Tech LLC. No spam — ever. Unsubscribe anytime.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PREMIUM PAYWALL MODAL ══ -->
+  <div class="modal-overlay" id="premium-modal">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-icon">✨</div>
+      <div class="modal-title">Unlock Premium</div>
+      <div class="modal-sub">Everything in free, plus the full toolkit<br>to build lasting wellness.</div>
+
+      <div class="premium-features">
+        <div class="premium-feature">
+          <div class="pf-icon">📚</div>
+          <div class="pf-text"><strong>50+ Guided Rituals</strong>Advanced breath, movement, sleep & focus habits</div>
+        </div>
+        <div class="premium-feature">
+          <div class="pf-icon">🎨</div>
+          <div class="pf-text"><strong>Custom Routine Builder</strong>Design your own morning, afternoon & evening flows</div>
+        </div>
+        <div class="premium-feature">
+          <div class="pf-icon">😴</div>
+          <div class="pf-text"><strong>Sleep Protocol</strong>21-night sleep reset with wind-down sequences</div>
+        </div>
+        <div class="premium-feature">
+          <div class="pf-icon">📊</div>
+          <div class="pf-text"><strong>Deep Analytics</strong>Mood trends, habit scores & weekly insights</div>
+        </div>
+        <div class="premium-feature">
+          <div class="pf-icon">🔔</div>
+          <div class="pf-text"><strong>Smart Reminders</strong>Personalized nudges based on your schedule</div>
+        </div>
+      </div>
+
+      <div class="price-block">
+        <div class="price-main">$6.99</div>
+        <div class="price-period">per month · cancel anytime</div>
+        <div class="price-note">🎯 Less than a cup of coffee a week</div>
+      </div>
+
+      <button class="premium-cta-btn" onclick="goToPremiumCheckout()">
+        ✨ Unlock Premium Now →
+      </button>
+
+      <div class="modal-divider"><span>have a promo code?</span></div>
+
+      <div style="display:flex;gap:10px;margin-bottom:12px">
+        <input class="form-input" id="promo-input" type="text" placeholder="Enter code"
+               style="text-transform:uppercase;letter-spacing:0.1em;flex:1"
+               oninput="this.value=this.value.toUpperCase()">
+        <button onclick="applyPromo()" style="
+          background:rgba(45,74,45,0.5);border:1px solid rgba(106,171,126,0.25);
+          color:var(--fern);border-radius:14px;padding:0 18px;
+          font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+          cursor:pointer;white-space:nowrap">Apply</button>
+      </div>
+      <div class="form-error-msg" id="promo-err" style="margin-bottom:10px">Invalid promo code</div>
+
+      <span class="modal-close-link" onclick="closePremiumModal()">Stay on free plan</span>
+    </div>
+  </div>
+
 <div class="completion-overlay" id="completion-overlay">
   <div class="completion-emoji" id="comp-emoji">🎉</div>
   <div class="completion-title" id="comp-title">Ritual Complete!</div>
@@ -1258,7 +1538,7 @@ function navigate(screen) {
   document.getElementById('nav-' + screen)?.classList.add('active');
   activeScreen = screen;
 
-  if (screen === 'home') renderHome();
+  if (screen === 'home') { renderHome(); renderPremiumBanner(); }
   if (screen === 'progress') renderProgress();
   if (screen === 'library') renderLibrary();
 }
@@ -1646,26 +1926,218 @@ function showToast(msg) {
 }
 
 // ══════════════════════════════════════
+// LEAD CAPTURE & PAYWALL
+// ══════════════════════════════════════
+
+const SQUARE_URL = 'https://square.link/u/aBodVmFr';
+const FORMSPREE_URL = 'https://formspree.io/f/xeeryaze';
+
+function isLeadCaptured() {
+  try { return !!localStorage.getItem('mh_lead_captured'); } catch(e) { return false; }
+}
+
+function markLeadCaptured(name) {
+  try {
+    localStorage.setItem('mh_lead_captured', '1');
+    localStorage.setItem('mh_user_name', name);
+  } catch(e) {}
+}
+
+function getUserName() {
+  try { return localStorage.getItem('mh_user_name') || ''; } catch(e) { return ''; }
+}
+
+function showLeadModal() {
+  document.getElementById('lead-modal').classList.add('show');
+}
+
+function closeLeadModal() {
+  document.getElementById('lead-modal').classList.remove('show');
+}
+
+function showPremiumModal() {
+  document.getElementById('premium-modal').classList.add('show');
+}
+
+function closePremiumModal() {
+  document.getElementById('premium-modal').classList.remove('show');
+}
+
+function isPremiumUnlocked() {
+  try { return localStorage.getItem('mh_premium') === '1'; } catch(e) { return false; }
+}
+
+function unlockPremium() {
+  try { localStorage.setItem('mh_premium', '1'); } catch(e) {}
+}
+
+function applyPromo() {
+  const input = document.getElementById('promo-input');
+  const errEl = document.getElementById('promo-err');
+  const code  = (input.value || '').trim().toUpperCase();
+
+  errEl.classList.remove('show');
+  input.classList.remove('error');
+
+  if (code === 'TST2026') {
+    unlockPremium();
+    input.value = '';
+    closePremiumModal();
+    showToast('🎉 Premium unlocked! Welcome.');
+    // Update banner so it reflects unlocked state
+    renderPremiumBanner();
+  } else {
+    input.classList.add('error');
+    errEl.classList.add('show');
+  }
+}
+
+function renderPremiumBanner() {
+  const banner = document.querySelector('.premium-banner');
+  if (!banner) return;
+  if (isPremiumUnlocked()) {
+    banner.innerHTML = \`
+      <div class="premium-text">
+        <div class="premium-title">✨ Premium Active</div>
+        <div class="premium-sub">Full access unlocked. Enjoy every ritual.</div>
+      </div>
+      <div style="font-size:22px">🏆</div>
+    \`;
+    banner.style.borderColor = 'rgba(106,171,126,0.35)';
+    banner.style.background = 'linear-gradient(135deg,rgba(74,124,89,0.18),rgba(45,74,45,0.12))';
+  }
+}
+
+function goToPremiumCheckout() {
+  try { localStorage.setItem('mh_premium_clicked', Date.now()); } catch(e) {}
+  closePremiumModal();
+  window.open(SQUARE_URL, '_blank');
+}
+
+async function submitLead() {
+  const nameEl   = document.getElementById('lead-name');
+  const emailEl  = document.getElementById('lead-email');
+  const phoneEl  = document.getElementById('lead-phone');
+  const nameErr  = document.getElementById('lead-name-err');
+  const emailErr = document.getElementById('lead-email-err');
+  const btn      = document.getElementById('lead-submit-btn');
+
+  [nameEl, emailEl].forEach(el => el.classList.remove('error'));
+  [nameErr, emailErr].forEach(el => el.classList.remove('show'));
+
+  const name  = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const phone = phoneEl.value.trim();
+  let valid = true;
+
+  if (!name) {
+    nameEl.classList.add('error'); nameErr.classList.add('show'); valid = false;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailEl.classList.add('error'); emailErr.classList.add('show'); valid = false;
+  }
+  if (!valid) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        source: 'Micro Habits PWA — Freemium Lead',
+        name, email,
+        phone: phone || 'Not provided',
+        date: new Date().toLocaleString(),
+        _subject: `New Micro Habits Lead: ${name}`
+      })
+    });
+  } catch(e) { /* fail silently */ }
+
+  markLeadCaptured(name);
+  btn.textContent = '✓ Welcome aboard!';
+
+  setTimeout(() => {
+    closeLeadModal();
+    const h = new Date().getHours();
+    const tod = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    const greet = document.getElementById('greeting-time');
+    if (greet) greet.textContent = `${tod}, ${name.split(' ')[0]}`;
+    showToast(`Welcome, ${name.split(' ')[0]}! 🌿`);
+  }, 800);
+}
+
+// Close modals on outside tap
+document.getElementById('lead-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeLeadModal();
+});
+document.getElementById('premium-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePremiumModal();
+});
+
+// ══════════════════════════════════════
 // INIT
 // ══════════════════════════════════════
 
 checkNewDay();
 renderHome();
+renderPremiumBanner();
 
-// Service Worker registration
+// Personalise greeting if returning user
+const _savedName = getUserName();
+if (_savedName) {
+  const _h = new Date().getHours();
+  const _tod = _h < 12 ? 'Good morning' : _h < 17 ? 'Good afternoon' : 'Good evening';
+  const _greet = document.getElementById('greeting-time');
+  if (_greet) _greet.textContent = `${_tod}, ${_savedName.split(' ')[0]}`;
+}
+
+// Show lead capture on first visit (after short delay)
+if (!isLeadCaptured()) {
+  setTimeout(showLeadModal, 900);
+}
+
+// PWA Install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  setTimeout(() => {
+    if (deferredPrompt && isLeadCaptured()) showToast('📲 Add to Home Screen for the full experience!');
+  }, 5000);
+});
+
+// Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     const swCode = `
-      const CACHE = 'micro-habits-v1';
-      const ASSETS = ['/'];
-      self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS))); self.skipWaiting(); });
-      self.addEventListener('fetch', e => { e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))); });
+      const CACHE_NAME = 'micro-habits-v2';
+      self.addEventListener('install', e => {
+        e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(['/'])));
+        self.skipWaiting();
+      });
+      self.addEventListener('activate', e => {
+        e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))));
+        self.clients.claim();
+      });
+      self.addEventListener('fetch', e => {
+        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+          if (!res || res.status !== 200 || res.type !== 'basic') return res;
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+          return res;
+        })));
+      });
     `;
     const blob = new Blob([swCode], { type: 'application/javascript' });
-    const url = URL.createObjectURL(blob);
-    navigator.serviceWorker.register(url).catch(() => {});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
   });
 }
+
+// Shortcut routing
+const _params = new URLSearchParams(window.location.search);
+if (_params.get('shortcut') === 'progress') setTimeout(() => navigate('progress'), 300);
 </script>
 </body>
 </html>
