@@ -10,16 +10,6 @@
 <title>Micro Habits — Daily Wellness Rituals</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
-<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
-<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="96x96" href="icons/icon-96.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Micro Habits">
-<meta name="application-name" content="Micro Habits">
-<meta name="msapplication-TileImage" content="icons/icon-144.png">
-<meta name="msapplication-TileColor" content="#1a2e1a">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -39,9 +29,7 @@
     --radius: 20px;
     --radius-sm: 12px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
   html, body {
     min-height: 100dvh;
     background: var(--forest);
@@ -49,19 +37,15 @@
     color: var(--cream);
     overflow-x: hidden;
   }
-
-  /* ── BACKGROUND TEXTURE ── */
   body::before {
     content: '';
     position: fixed; inset: 0; z-index: 0;
-    background: 
+    background:
       radial-gradient(ellipse 80% 60% at 20% 10%, rgba(74,124,89,0.18) 0%, transparent 60%),
       radial-gradient(ellipse 60% 80% at 80% 90%, rgba(45,74,45,0.25) 0%, transparent 60%),
       radial-gradient(ellipse 40% 40% at 60% 40%, rgba(106,171,126,0.08) 0%, transparent 50%);
     pointer-events: none;
   }
-
-  /* Grain overlay */
   body::after {
     content: '';
     position: fixed; inset: 0; z-index: 1;
@@ -69,8 +53,6 @@
     pointer-events: none;
     opacity: 0.5;
   }
-
-  /* ── APP WRAPPER ── */
   #app {
     position: relative; z-index: 2;
     max-width: 430px;
@@ -83,28 +65,17 @@
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
-
-  /* ── SCREENS ── */
   .screen { display: none; flex-direction: column; flex: 1; animation: fadeIn 0.4s ease; }
   .screen.active { display: flex; }
-
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
-  /* ── HEADER ── */
   .app-header {
     padding: 24px 24px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
   }
-
-  .logo-mark {
-    display: flex; align-items: center; gap: 10px;
-  }
-
+  .logo-mark { display: flex; align-items: center; gap: 10px; }
   .logo-leaf {
     width: 32px; height: 32px;
     background: linear-gradient(135deg, var(--fern), var(--sage));
@@ -113,71 +84,47 @@
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 12px rgba(106,171,126,0.3);
   }
-
   .logo-leaf span { transform: rotate(45deg); font-size: 14px; }
-
   .logo-text {
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    color: var(--cream);
-    letter-spacing: 0.02em;
+    font-size: 18px; color: var(--cream); letter-spacing: 0.02em;
   }
-
   .header-streak {
     display: flex; align-items: center; gap: 6px;
     background: rgba(200,169,110,0.15);
     border: 1px solid rgba(200,169,110,0.3);
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 13px;
-    color: var(--gold);
-    font-weight: 500;
+    border-radius: 20px; padding: 6px 12px;
+    font-size: 13px; color: var(--gold); font-weight: 500;
   }
-
-  /* ── BOTTOM NAV ── */
   .bottom-nav {
-    position: fixed;
-    bottom: 0; left: 50%;
+    position: fixed; bottom: 0; left: 50%;
     transform: translateX(-50%);
     width: 100%; max-width: 430px;
     background: rgba(26,46,26,0.92);
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(106,171,126,0.15);
     padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
-    display: flex;
-    justify-content: space-around;
+    display: flex; justify-content: space-around;
     z-index: 100;
   }
-
   .nav-btn {
     display: flex; flex-direction: column; align-items: center; gap: 4px;
     background: none; border: none; cursor: pointer;
     color: var(--text-light); font-size: 10px; font-family: 'DM Sans', sans-serif;
     font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 4px 16px; border-radius: 12px;
-    transition: color 0.2s;
+    padding: 4px 16px; border-radius: 12px; transition: color 0.2s;
   }
-
   .nav-btn.active { color: var(--fern); }
   .nav-btn svg { width: 22px; height: 22px; }
-
-  /* ── HOME SCREEN ── */
   .greeting-block { padding: 8px 24px 24px; }
-
   .greeting-time {
-    font-size: 12px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.12em;
-    margin-bottom: 6px;
+    font-size: 12px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;
   }
-
   .greeting-heading {
     font-family: 'Playfair Display', serif;
-    font-size: 28px; line-height: 1.2;
-    color: var(--warm-white);
+    font-size: 28px; line-height: 1.2; color: var(--warm-white);
   }
-
   .greeting-heading em { color: var(--fern); font-style: italic; }
-
-  /* Progress ring */
   .daily-ring-wrap {
     margin: 0 24px 24px;
     background: rgba(45,74,45,0.3);
@@ -186,112 +133,75 @@
     padding: 24px;
     display: flex; align-items: center; gap: 20px;
   }
-
   .ring-svg { flex-shrink: 0; }
   .ring-bg { fill: none; stroke: rgba(106,171,126,0.15); stroke-width: 6; }
   .ring-fill {
-    fill: none;
-    stroke: var(--fern);
-    stroke-width: 6;
-    stroke-linecap: round;
-    stroke-dasharray: 226;
-    stroke-dashoffset: 226;
-    transform: rotate(-90deg);
-    transform-origin: center;
+    fill: none; stroke: var(--fern); stroke-width: 6;
+    stroke-linecap: round; stroke-dasharray: 226; stroke-dashoffset: 226;
+    transform: rotate(-90deg); transform-origin: center;
     transition: stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1);
   }
-
   .ring-label { text-anchor: middle; dominant-baseline: middle; }
   .ring-num { font-family: 'Playfair Display', serif; font-size: 22px; fill: var(--warm-white); font-weight: 600; }
   .ring-sub { font-size: 10px; fill: var(--mist); }
-
   .ring-info { flex: 1; }
   .ring-info-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--warm-white); margin-bottom: 6px; }
   .ring-info-sub { font-size: 13px; color: var(--mist); line-height: 1.5; }
-
-  /* Ritual cards */
   .section-label {
     padding: 0 24px 12px;
-    font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.14em;
-    font-weight: 500;
+    font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500;
   }
-
   .rituals-list { padding: 0 24px; display: flex; flex-direction: column; gap: 12px; }
-
   .ritual-card {
-    background: rgba(45,74,45,0.25);
-    border: 1px solid rgba(106,171,126,0.12);
-    border-radius: var(--radius);
-    padding: 16px 18px;
+    background: rgba(45,74,45,0.25); border: 1px solid rgba(106,171,126,0.12);
+    border-radius: var(--radius); padding: 16px 18px;
     display: flex; align-items: center; gap: 16px;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s;
     position: relative; overflow: hidden;
   }
-
   .ritual-card::before {
-    content: '';
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--card-color, var(--fern));
-    border-radius: 3px 0 0 3px;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--card-color, var(--fern)); border-radius: 3px 0 0 3px;
   }
-
   .ritual-card:active { transform: scale(0.98); }
+  .ritual-card.locked { opacity: 0.6; }
+  .ritual-card.locked::before { background: rgba(106,171,126,0.3); }
+  .ritual-card.locked::after { content: '🔒'; position: absolute; top: 8px; right: 12px; font-size: 0.9rem; }
   .ritual-card.completed { background: rgba(74,124,89,0.2); border-color: rgba(106,171,126,0.3); }
-
   .ritual-icon {
     width: 44px; height: 44px; border-radius: 14px;
     background: var(--card-color-bg, rgba(106,171,126,0.15));
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
-    transition: transform 0.3s;
+    font-size: 20px; flex-shrink: 0; transition: transform 0.3s;
   }
-
   .ritual-card.completed .ritual-icon { transform: scale(1.1); }
-
   .ritual-info { flex: 1; }
   .ritual-name { font-size: 15px; font-weight: 500; color: var(--warm-white); margin-bottom: 3px; }
   .ritual-meta { font-size: 12px; color: var(--mist); }
-
   .ritual-check {
     width: 28px; height: 28px; border-radius: 50%;
     border: 2px solid rgba(106,171,126,0.3);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; transition: all 0.3s;
   }
-
-  .ritual-card.completed .ritual-check {
-    background: var(--fern); border-color: var(--fern);
-  }
-
+  .ritual-card.completed .ritual-check { background: var(--fern); border-color: var(--fern); }
   .check-svg { width: 14px; height: 14px; opacity: 0; transition: opacity 0.2s; }
   .ritual-card.completed .check-svg { opacity: 1; }
-
-  /* Quote banner */
   .quote-banner {
     margin: 20px 24px 0;
     background: linear-gradient(135deg, rgba(200,169,110,0.12), rgba(212,148,74,0.08));
     border: 1px solid rgba(200,169,110,0.2);
-    border-radius: var(--radius);
-    padding: 20px;
+    border-radius: var(--radius); padding: 20px;
   }
-
   .quote-text {
     font-family: 'Playfair Display', serif;
-    font-size: 15px; font-style: italic;
-    color: var(--parchment);
+    font-size: 15px; font-style: italic; color: var(--parchment);
     line-height: 1.6; margin-bottom: 8px;
   }
-
   .quote-author { font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; }
-
-  /* ── RITUAL SESSION SCREEN ── */
   .session-header {
-    padding: 20px 24px;
-    display: flex; align-items: center; gap: 12px;
+    padding: 20px 24px; display: flex; align-items: center; gap: 12px;
   }
-
   .back-btn {
     width: 38px; height: 38px; border-radius: 12px;
     background: rgba(45,74,45,0.4); border: 1px solid rgba(106,171,126,0.15);
@@ -299,274 +209,150 @@
     cursor: pointer; color: var(--mist); transition: background 0.2s;
   }
   .back-btn:active { background: rgba(74,124,89,0.4); }
-
   .session-title-block { flex: 1; }
   .session-category { font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.1em; }
   .session-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--warm-white); }
-
-  /* Timer */
   .timer-wrap {
     margin: 10px 24px 24px;
-    background: rgba(45,74,45,0.3);
-    border: 1px solid rgba(106,171,126,0.15);
-    border-radius: 28px;
-    padding: 32px 24px;
-    text-align: center;
+    background: rgba(45,74,45,0.3); border: 1px solid rgba(106,171,126,0.15);
+    border-radius: 28px; padding: 32px 24px; text-align: center;
   }
-
   .timer-ring-wrap { position: relative; width: 160px; height: 160px; margin: 0 auto 24px; }
-
   .timer-svg { width: 160px; height: 160px; }
   .timer-bg { fill: none; stroke: rgba(106,171,126,0.12); stroke-width: 8; }
   .timer-track {
-    fill: none;
-    stroke: var(--fern);
-    stroke-width: 8;
-    stroke-linecap: round;
-    stroke-dasharray: 440;
-    stroke-dashoffset: 0;
-    transform: rotate(-90deg);
-    transform-origin: center;
+    fill: none; stroke: var(--fern); stroke-width: 8;
+    stroke-linecap: round; stroke-dasharray: 440; stroke-dashoffset: 0;
+    transform: rotate(-90deg); transform-origin: center;
     transition: stroke-dashoffset 1s linear, stroke 0.3s;
   }
-
   .timer-center {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
   }
-
   .timer-display {
     font-family: 'Playfair Display', serif;
-    font-size: 38px; font-weight: 600;
-    color: var(--warm-white);
-    letter-spacing: -0.02em;
+    font-size: 38px; font-weight: 600; color: var(--warm-white); letter-spacing: -0.02em;
   }
-
   .timer-phase { font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
-
   .timer-desc {
     font-size: 14px; color: var(--mist); line-height: 1.6;
     max-width: 280px; margin: 0 auto 24px;
   }
-
   .timer-controls { display: flex; gap: 12px; justify-content: center; }
-
   .ctrl-btn {
-    height: 50px; border-radius: 16px;
-    border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 500;
+    height: 50px; border-radius: 16px; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
     transition: all 0.2s;
     display: flex; align-items: center; justify-content: center; gap: 8px;
   }
-
   .ctrl-btn.primary {
-    background: var(--fern); color: var(--forest);
-    padding: 0 32px; flex: 1; max-width: 180px;
-    box-shadow: 0 4px 20px rgba(106,171,126,0.3);
+    background: var(--fern); color: var(--forest); padding: 0 32px; flex: 1; max-width: 180px;
+    box-shadow: 0 4px 16px rgba(106,171,126,0.35);
   }
   .ctrl-btn.primary:active { transform: scale(0.97); }
-
   .ctrl-btn.secondary {
-    background: rgba(45,74,45,0.4);
-    border: 1px solid rgba(106,171,126,0.2);
-    color: var(--mist);
-    padding: 0 20px;
+    background: rgba(45,74,45,0.3); border: 1px solid rgba(106,171,126,0.15);
+    color: var(--mist); padding: 0 20px;
   }
-
-  /* Steps list */
-  .steps-list { padding: 0 24px; display: flex; flex-direction: column; gap: 10px; }
-
-  .step-item {
-    background: rgba(45,74,45,0.2);
-    border: 1px solid rgba(106,171,126,0.1);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    display: flex; gap: 14px; align-items: flex-start;
-    transition: all 0.3s;
+  .ctrl-btn.secondary:active { background: rgba(74,124,89,0.2); }
+  .tod-pills {
+    display: flex; gap: 8px; padding: 0 24px 16px;
   }
-
-  .step-item.active-step {
-    background: rgba(74,124,89,0.25);
-    border-color: rgba(106,171,126,0.35);
+  .tod-pill {
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid rgba(106,171,126,0.15);
+    background: rgba(45,74,45,0.2); color: var(--mist); font-size: 12px; cursor: pointer; transition: all 0.2s;
   }
-
-  .step-num {
-    width: 26px; height: 26px; border-radius: 50%;
-    background: rgba(106,171,126,0.15);
-    border: 1px solid rgba(106,171,126,0.25);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: var(--mist); flex-shrink: 0;
-    font-weight: 600;
-  }
-
-  .step-item.active-step .step-num { background: var(--fern); color: var(--forest); border-color: var(--fern); }
-  .step-item.done-step .step-num { background: rgba(74,124,89,0.5); color: var(--fern); }
-
-  .step-text { font-size: 13px; color: var(--mist); line-height: 1.55; padding-top: 4px; }
-  .step-item.active-step .step-text { color: var(--cream); }
-
-  /* ── HABITS LIBRARY SCREEN ── */
-  .lib-header { padding: 16px 24px 8px; }
+  .tod-pill.active { background: var(--moss); border-color: var(--sage); color: var(--mist); }
+  .lib-header { padding: 20px 24px; }
   .lib-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--warm-white); margin-bottom: 4px; }
   .lib-sub { font-size: 13px; color: var(--mist); }
-
   .category-tabs {
-    padding: 12px 24px;
-    display: flex; gap: 8px; overflow-x: auto;
-    scrollbar-width: none;
+    display: flex; gap: 8px; padding: 0 24px 16px;
+    overflow-x: auto; scrollbar-width: none;
   }
   .category-tabs::-webkit-scrollbar { display: none; }
-
   .cat-tab {
-    padding: 8px 16px; border-radius: 20px;
-    background: rgba(45,74,45,0.3);
-    border: 1px solid rgba(106,171,126,0.12);
-    color: var(--mist); font-size: 12px; font-weight: 500;
-    cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid rgba(106,171,126,0.15);
+    background: rgba(45,74,45,0.2); color: var(--mist); font-size: 12px; cursor: pointer; white-space: nowrap; transition: all 0.2s;
   }
-
-  .cat-tab.active {
-    background: var(--fern); color: var(--forest); border-color: var(--fern);
+  .cat-tab.active { background: var(--moss); border-color: var(--sage); color: var(--mist); }
+  .habit-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
   }
-
-  .habit-grid { padding: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .habit-tile {
-    background: rgba(45,74,45,0.25);
-    border: 1px solid rgba(106,171,126,0.12);
-    border-radius: var(--radius);
-    padding: 18px 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative; overflow: hidden;
+  .habit-card {
+    background: rgba(45,74,45,0.2); border: 1px solid rgba(106,171,126,0.1);
+    border-radius: 16px; padding: 16px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+    cursor: pointer; transition: all 0.2s;
   }
-
-  .habit-tile.in-routine {
-    border-color: rgba(106,171,126,0.4);
-    background: rgba(74,124,89,0.2);
-  }
-
-  .habit-tile:active { transform: scale(0.97); }
-
-  .habit-tile-icon { font-size: 28px; margin-bottom: 10px; }
-  .habit-tile-name { font-size: 13px; font-weight: 500; color: var(--warm-white); margin-bottom: 4px; }
-  .habit-tile-dur { font-size: 11px; color: var(--mist); }
-
-  .habit-added-badge {
-    position: absolute; top: 10px; right: 10px;
-    width: 20px; height: 20px; border-radius: 50%;
-    background: var(--fern);
-    display: none; align-items: center; justify-content: center;
-  }
-
-  .habit-tile.in-routine .habit-added-badge { display: flex; }
-
-  /* ── PROGRESS SCREEN ── */
-  .prog-header { padding: 20px 24px 16px; }
+  .habit-card:hover { border-color: rgba(106,171,126,0.3); transform: translateY(-1px); }
+  .habit-card .hc-icon { font-size: 28px; }
+  .habit-card .hc-name { font-size: 13px; font-weight: 500; color: var(--warm-white); }
+  .habit-card .hc-time { font-size: 11px; color: var(--mist); }
+  .prog-header { padding: 20px 24px; }
   .prog-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--warm-white); margin-bottom: 4px; }
   .prog-sub { font-size: 13px; color: var(--mist); }
-
-  .stats-row { padding: 0 24px; display: flex; gap: 12px; margin-bottom: 20px; }
-
+  .stats-row { display: flex; gap: 10px; padding: 0 24px; margin-bottom: 20px; }
   .stat-card {
-    flex: 1;
-    background: rgba(45,74,45,0.3);
-    border: 1px solid rgba(106,171,126,0.15);
-    border-radius: var(--radius);
-    padding: 16px;
-    text-align: center;
+    flex: 1; background: rgba(45,74,45,0.25); border: 1px solid rgba(106,171,126,0.1);
+    border-radius: 16px; padding: 16px; text-align: center;
   }
-
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--warm-white); font-weight: 700; }
-  .stat-label { font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
-
-  /* Calendar heatmap */
-  .heatmap-wrap {
-    margin: 0 24px 20px;
-    background: rgba(45,74,45,0.25);
-    border: 1px solid rgba(106,171,126,0.12);
-    border-radius: var(--radius);
-    padding: 20px;
-  }
-
-  .heatmap-title { font-size: 13px; color: var(--mist); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
-  .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--warm-white); font-weight: 700; }
+  .stat-label { font-size: 10px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .heatmap-wrap { padding: 0 24px; margin-bottom: 20px; }
+  .heatmap-title { font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
   .heatmap-day {
-    aspect-ratio: 1;
-    border-radius: 5px;
-    background: rgba(106,171,126,0.08);
-    transition: background 0.3s;
+    aspect-ratio: 1; border-radius: 4px;
+    background: rgba(106,171,126,0.08); border: 1px solid rgba(106,171,126,0.08);
   }
   .heatmap-day.done { background: rgba(106,171,126,0.5); }
   .heatmap-day.today { background: var(--fern); box-shadow: 0 0 8px rgba(106,171,126,0.5); }
   .heatmap-day.perfect { background: var(--gold); }
-
-  /* Achievements */
   .achieve-section { padding: 0 24px; }
   .achieve-title { font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
   .achieve-row { display: flex; gap: 10px; flex-wrap: wrap; }
-
   .badge {
     display: flex; flex-direction: column; align-items: center; gap: 6px;
-    background: rgba(45,74,45,0.3);
-    border: 1px solid rgba(106,171,126,0.15);
-    border-radius: 16px;
-    padding: 14px 12px;
-    width: calc(33.33% - 7px);
-    text-align: center;
-    transition: all 0.3s;
+    background: rgba(45,74,45,0.3); border: 1px solid rgba(106,171,126,0.15);
+    border-radius: 16px; padding: 14px 12px;
+    width: calc(33.33% - 7px); text-align: center; transition: all 0.3s;
   }
-
   .badge.earned { border-color: rgba(200,169,110,0.4); background: rgba(200,169,110,0.1); }
   .badge.locked { opacity: 0.45; }
-
   .badge-icon { font-size: 24px; }
   .badge-name { font-size: 10px; color: var(--mist); font-weight: 500; }
   .badge.earned .badge-name { color: var(--gold); }
-
-  /* ── SETTINGS / PROFILE ── */
   .profile-wrap { padding: 20px 24px; }
   .profile-top { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-  
   .avatar {
     width: 60px; height: 60px; border-radius: 20px;
     background: linear-gradient(135deg, var(--sage), var(--fern));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
   }
-
   .profile-name { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--warm-white); }
   .profile-since { font-size: 12px; color: var(--mist); }
-
   .settings-section { margin-bottom: 20px; }
   .settings-label { font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
-
   .settings-row {
-    background: rgba(45,74,45,0.25);
-    border: 1px solid rgba(106,171,126,0.1);
-    border-radius: var(--radius-sm);
-    display: flex; flex-direction: column;
-    overflow: hidden;
+    background: rgba(45,74,45,0.25); border: 1px solid rgba(106,171,126,0.1);
+    border-radius: var(--radius-sm); display: flex; flex-direction: column; overflow: hidden;
   }
-
   .settings-item {
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 16px;
-    border-bottom: 1px solid rgba(106,171,126,0.08);
-    cursor: pointer; transition: background 0.15s;
+    border-bottom: 1px solid rgba(106,171,126,0.08); cursor: pointer; transition: background 0.15s;
   }
-
   .settings-item:last-child { border-bottom: none; }
   .settings-item:active { background: rgba(74,124,89,0.2); }
-
   .settings-item-left { display: flex; align-items: center; gap: 12px; }
   .settings-item-icon { font-size: 18px; }
   .settings-item-text { font-size: 14px; color: var(--cream); }
   .settings-item-value { font-size: 13px; color: var(--mist); }
-
-  /* Toggle */
   .toggle {
     width: 44px; height: 26px; border-radius: 13px;
     background: rgba(106,171,126,0.2); border: none; cursor: pointer;
@@ -575,306 +361,300 @@
   .toggle::after {
     content: ''; position: absolute;
     width: 20px; height: 20px; border-radius: 50%;
-    background: var(--mist); top: 3px; left: 3px;
-    transition: all 0.3s;
+    background: var(--mist); top: 3px; left: 3px; transition: all 0.3s;
   }
   .toggle.on { background: var(--fern); }
   .toggle.on::after { left: 21px; background: var(--forest); }
-
-  /* ── COMPLETION OVERLAY ── */
   .completion-overlay {
-    display: none;
-    position: fixed; inset: 0; z-index: 200;
-    background: rgba(26,46,26,0.92);
-    backdrop-filter: blur(10px);
-    align-items: center; justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 40px;
-    animation: fadeIn 0.4s ease;
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(26,46,26,0.92); backdrop-filter: blur(10px);
+    align-items: center; justify-content: center; flex-direction: column;
+    text-align: center; padding: 40px; animation: fadeIn 0.4s ease;
   }
-
   .completion-overlay.show { display: flex; }
-
   .completion-emoji { font-size: 64px; margin-bottom: 20px; animation: bounce 0.6s ease 0.2s both; }
   .completion-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--warm-white); margin-bottom: 10px; }
   .completion-sub { font-size: 15px; color: var(--mist); line-height: 1.6; margin-bottom: 32px; }
-
   .completion-streak {
     display: flex; align-items: center; gap: 8px;
-    background: rgba(200,169,110,0.15);
-    border: 1px solid rgba(200,169,110,0.3);
+    background: rgba(200,169,110,0.15); border: 1px solid rgba(200,169,110,0.3);
     border-radius: 20px; padding: 10px 20px;
-    color: var(--gold); font-size: 15px; font-weight: 500;
-    margin-bottom: 24px;
+    color: var(--gold); font-size: 15px; font-weight: 500; margin-bottom: 24px;
   }
-
   .completion-btn {
-    background: var(--fern); color: var(--forest);
-    border: none; border-radius: 16px;
+    background: var(--fern); color: var(--forest); border: none; border-radius: 16px;
     padding: 14px 40px; font-size: 15px; font-weight: 600;
     cursor: pointer; font-family: 'DM Sans', sans-serif;
-    box-shadow: 0 4px 24px rgba(106,171,126,0.4);
-    transition: transform 0.2s;
+    box-shadow: 0 4px 24px rgba(106,171,126,0.4); transition: transform 0.2s;
   }
   .completion-btn:active { transform: scale(0.97); }
-
   @keyframes bounce {
     0%, 100% { transform: translateY(0) scale(1); }
     50% { transform: translateY(-16px) scale(1.1); }
   }
-
-  /* ── CONFETTI ── */
   .confetti-piece {
-    position: fixed; width: 8px; height: 8px;
-    border-radius: 2px;
-    animation: confettiFall linear forwards;
-    pointer-events: none; z-index: 300;
+    position: fixed; width: 8px; height: 8px; border-radius: 2px;
+    animation: confettiFall linear forwards; pointer-events: none; z-index: 300;
   }
-
   @keyframes confettiFall {
     0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
     100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
-
-  /* Scrollable content */
   .scroll-content { flex: 1; overflow-y: auto; padding-bottom: 20px; scrollbar-width: none; }
   .scroll-content::-webkit-scrollbar { display: none; }
-
-  /* Breathing animation for active ritual */
   .breathe-anim {
     width: 80px; height: 80px; border-radius: 50%;
     background: radial-gradient(circle, rgba(106,171,126,0.4), rgba(74,124,89,0.1));
-    margin: 0 auto 16px;
-    animation: breathe 4s ease-in-out infinite;
+    margin: 0 auto 16px; animation: breathe 4s ease-in-out infinite;
   }
-
   @keyframes breathe {
     0%, 100% { transform: scale(1); opacity: 0.7; }
     50% { transform: scale(1.3); opacity: 1; }
   }
-
-  /* Pulse on complete */
   @keyframes pulseGreen {
     0% { box-shadow: 0 0 0 0 rgba(106,171,126,0.5); }
     70% { box-shadow: 0 0 0 16px rgba(106,171,126,0); }
     100% { box-shadow: 0 0 0 0 rgba(106,171,126,0); }
   }
-
   .ritual-card.just-completed { animation: pulseGreen 0.6s ease; }
-
-  /* Premium banner */
   .premium-banner {
     margin: 20px 24px 0;
     background: linear-gradient(135deg, rgba(200,169,110,0.18), rgba(212,148,74,0.12));
     border: 1px solid rgba(200,169,110,0.25);
-    border-radius: var(--radius);
-    padding: 18px;
+    border-radius: var(--radius); padding: 18px;
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
   }
-
   .premium-text { flex: 1; }
   .premium-title { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 3px; }
   .premium-sub { font-size: 12px; color: var(--mist); }
-
   .premium-cta {
     background: linear-gradient(135deg, var(--gold), var(--amber));
     color: var(--forest); border: none; border-radius: 12px;
     padding: 8px 16px; font-size: 12px; font-weight: 700;
-    cursor: pointer; white-space: nowrap;
-    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; white-space: nowrap; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.15s;
   }
-
-  /* Time of day pill */
-  .tod-pills {
-    display: flex; gap: 8px; padding: 0 24px 16px;
-  }
-
-  .tod-pill {
-    padding: 6px 14px; border-radius: 20px;
-    border: 1px solid rgba(106,171,126,0.15);
-    background: rgba(45,74,45,0.2);
-    color: var(--mist); font-size: 12px; cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .tod-pill.active { background: var(--moss); border-color: var(--sage); color: var(--mist); }
-
-  /* Active dots */
-  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--fern); display: inline-block; }
-
-  /* ── MODAL OVERLAY ── */
+  .premium-cta:active { transform: scale(0.97); }
+  /* ── PAYWALL MODAL ── */
   .modal-overlay {
-    display: none;
-    position: fixed; inset: 0; z-index: 400;
-    background: rgba(10, 20, 10, 0.88);
-    backdrop-filter: blur(16px);
-    align-items: flex-end;
-    justify-content: center;
+    display: none; position: fixed; inset: 0; z-index: 400;
+    background: rgba(10,20,10,0.88); backdrop-filter: blur(16px);
+    align-items: flex-end; justify-content: center;
     animation: fadeIn 0.3s ease;
   }
   .modal-overlay.show { display: flex; }
-
   .modal-sheet {
     width: 100%; max-width: 430px;
     background: linear-gradient(175deg, #243824, #1a2e1a);
     border: 1px solid rgba(106,171,126,0.18);
-    border-bottom: none;
-    border-radius: 28px 28px 0 0;
+    border-bottom: none; border-radius: 28px 28px 0 0;
     padding: 12px 24px 40px;
     animation: slideUp 0.38s cubic-bezier(0.32,0.72,0,1);
-    max-height: 92dvh;
-    overflow-y: auto;
+    max-height: 92dvh; overflow-y: auto;
   }
-
   @keyframes slideUp {
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
   }
-
   .modal-handle {
     width: 40px; height: 4px; border-radius: 2px;
-    background: rgba(106,171,126,0.25);
-    margin: 8px auto 20px;
+    background: rgba(106,171,126,0.25); margin: 8px auto 20px;
   }
-
   .modal-icon { font-size: 44px; text-align: center; margin-bottom: 12px; }
-
   .modal-title {
     font-family: 'Playfair Display', serif;
     font-size: 24px; color: var(--warm-white);
-    text-align: center; margin-bottom: 8px;
-    line-height: 1.25;
+    text-align: center; margin-bottom: 8px; line-height: 1.25;
   }
-
   .modal-sub {
-    font-size: 14px; color: var(--mist);
-    text-align: center; line-height: 1.6;
-    margin-bottom: 24px;
+    font-size: 14px; color: var(--mist); text-align: center; line-height: 1.6; margin-bottom: 24px;
   }
-
-  /* Form */
-  .form-group { margin-bottom: 14px; }
-
-  .form-label {
-    display: block; font-size: 11px;
-    color: var(--mist); text-transform: uppercase;
-    letter-spacing: 0.1em; margin-bottom: 7px; font-weight: 500;
-  }
-
-  .form-input {
-    width: 100%;
-    background: rgba(45,74,45,0.35);
-    border: 1px solid rgba(106,171,126,0.2);
-    border-radius: 14px;
-    padding: 13px 16px;
-    font-size: 15px; color: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    outline: none;
-    transition: border-color 0.2s, background 0.2s;
-    -webkit-appearance: none;
-  }
-
-  .form-input::placeholder { color: rgba(168,197,160,0.4); }
-  .form-input:focus {
-    border-color: rgba(106,171,126,0.5);
-    background: rgba(74,124,89,0.2);
-  }
-
-  .form-optional {
-    font-size: 11px; color: rgba(168,197,160,0.5);
-    margin-left: 6px; font-style: italic;
-  }
-
-  .form-submit {
-    width: 100%; padding: 15px;
-    background: var(--fern); color: var(--forest);
-    border: none; border-radius: 16px;
-    font-size: 15px; font-weight: 700;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer; margin-top: 8px;
-    box-shadow: 0 4px 24px rgba(106,171,126,0.35);
-    transition: transform 0.15s, box-shadow 0.15s;
-    letter-spacing: 0.02em;
-  }
-  .form-submit:active { transform: scale(0.98); }
-  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  .form-legal {
-    font-size: 11px; color: rgba(168,197,160,0.45);
-    text-align: center; margin-top: 12px; line-height: 1.5;
-  }
-
-  .modal-divider {
-    display: flex; align-items: center; gap: 12px;
-    margin: 18px 0;
-  }
-  .modal-divider::before, .modal-divider::after {
-    content: ''; flex: 1; height: 1px;
-    background: rgba(106,171,126,0.15);
-  }
-  .modal-divider span { font-size: 11px; color: var(--mist); white-space: nowrap; }
-
-  /* Premium modal specifics */
-  .premium-features {
-    display: flex; flex-direction: column; gap: 10px;
-    margin-bottom: 22px;
-  }
-
+  .premium-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
   .premium-feature {
     display: flex; align-items: center; gap: 12px;
-    background: rgba(45,74,45,0.25);
-    border: 1px solid rgba(106,171,126,0.1);
+    background: rgba(45,74,45,0.25); border: 1px solid rgba(106,171,126,0.1);
     border-radius: 12px; padding: 12px 14px;
   }
-
   .pf-icon { font-size: 20px; flex-shrink: 0; }
   .pf-text { font-size: 13px; color: var(--cream); }
   .pf-text strong { color: var(--warm-white); display: block; font-size: 13px; margin-bottom: 1px; }
-
-  .price-block {
-    background: rgba(200,169,110,0.1);
-    border: 1px solid rgba(200,169,110,0.25);
-    border-radius: 16px;
-    padding: 16px;
-    text-align: center;
-    margin-bottom: 16px;
+  /* Plan selector */
+  .plan-selector { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .plan-option {
+    border-radius: 16px; padding: 16px; cursor: pointer; transition: all 0.2s; text-align: center;
+    border: 2px solid transparent;
   }
-
+  .plan-option.selected { border-color: var(--fern); background: rgba(106,171,126,0.15); }
+  .plan-option:not(.selected) { border-color: rgba(106,171,126,0.15); background: rgba(45,74,45,0.2); }
+  .plan-option.bundle { position: relative; padding-top: 22px; }
+  .plan-option .best-badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--forest); font-size: 0.6rem; font-weight: 700;
+    padding: 3px 12px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.05em;
+  }
+  .plan-price { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--warm-white); line-height: 1; }
+  .plan-option.bundle .plan-price { color: var(--gold); }
+  .plan-period { font-size: 0.65rem; color: var(--mist); letter-spacing: 2px; margin-top: 4px; text-transform: uppercase; }
+  .plan-desc { font-size: 0.72rem; color: rgba(168,197,160,0.6); margin-top: 6px; }
+  .plan-option.bundle .plan-desc { color: rgba(200,169,110,0.6); }
+  .price-block {
+    background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.25);
+    border-radius: 16px; padding: 16px; text-align: center; margin-bottom: 16px;
+  }
   .price-main {
     font-family: 'Playfair Display', serif;
-    font-size: 36px; color: var(--warm-white); font-weight: 700;
-    line-height: 1;
+    font-size: 36px; color: var(--warm-white); font-weight: 700; line-height: 1;
   }
-
   .price-period { font-size: 13px; color: var(--mist); margin-top: 4px; }
   .price-note { font-size: 11px; color: var(--gold); margin-top: 6px; }
-
   .premium-cta-btn {
     width: 100%; padding: 15px;
     background: linear-gradient(135deg, var(--gold), var(--amber));
     color: var(--forest); border: none; border-radius: 16px;
     font-size: 15px; font-weight: 700;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer; margin-bottom: 12px;
-    box-shadow: 0 4px 24px rgba(200,169,110,0.3);
-    transition: transform 0.15s;
-    letter-spacing: 0.02em;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; margin-bottom: 12px;
+    box-shadow: 0 4px 24px rgba(200,169,110,0.3); transition: transform 0.15s; letter-spacing: 0.02em;
   }
   .premium-cta-btn:active { transform: scale(0.98); }
-
+  .promo-row {
+    display: flex; gap: 8px; margin-bottom: 8px;
+  }
+  .promo-input {
+    flex: 1; background: rgba(45,74,45,0.35);
+    border: 1px solid rgba(106,171,126,0.2); border-radius: 12px;
+    padding: 11px 14px; font-size: 14px; color: var(--cream);
+    font-family: 'DM Sans', sans-serif; outline: none;
+    transition: border-color 0.2s;
+  }
+  .promo-input::placeholder { color: rgba(168,197,160,0.4); }
+  .promo-input:focus { border-color: rgba(106,171,126,0.5); }
+  .promo-btn {
+    padding: 11px 16px;
+    background: rgba(106,171,126,0.15); border: 1px solid rgba(106,171,126,0.25);
+    border-radius: 12px; color: var(--fern); font-size: 0.8rem;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s;
+  }
+  .promo-btn:hover { background: rgba(106,171,126,0.25); }
+  .promo-msg { font-size: 0.75rem; margin-bottom: 8px; min-height: 18px; text-align: center; }
   .modal-close-link {
-    display: block; text-align: center;
-    font-size: 13px; color: var(--mist);
-    cursor: pointer; padding: 8px;
-    transition: color 0.2s;
+    display: block; text-align: center; font-size: 13px; color: var(--mist);
+    cursor: pointer; padding: 8px; transition: color 0.2s;
   }
   .modal-close-link:hover { color: var(--cream); }
-
-  /* Error state */
   .form-input.error { border-color: rgba(212,100,100,0.5); }
   .form-error-msg { font-size: 11px; color: #e07070; margin-top: 5px; display: none; }
   .form-error-msg.show { display: block; }
+
+  /* ══ ASMR ══ */
+  .asmr-section {
+    margin: 0 24px 20px;
+    background: linear-gradient(135deg, rgba(106,171,126,0.08), rgba(45,74,45,0.15));
+    border: 1px solid rgba(106,171,126,0.2);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .asmr-section-label { font-size: 0.6rem; letter-spacing: 3px; color: var(--sage); text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
+  .asmr-section-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--warm-white); margin-bottom: 4px; }
+  .asmr-section-sub { font-size: 12px; color: var(--mist); margin-bottom: 12px; }
+  .asmr-videos-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+  .asmr-videos-row::-webkit-scrollbar { display: none; }
+  .asmr-thumb {
+    width: 90px; height: 64px; flex-shrink: 0;
+    border-radius: 10px; overflow: hidden;
+    background: var(--moss); position: relative; cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .asmr-thumb:hover { transform: scale(1.05); }
+  .asmr-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
+  .asmr-thumb-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .asmr-thumb-name { font-size: 10px; color: var(--mist); margin-top: 4px; text-align: center; max-width: 90px; }
+
+  /* ══ PROFILE ══ */
+  .profile-wrap { padding: 0 24px 20px; }
+  .profile-top { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--fern), var(--sage)); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+  .profile-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--warm-white); }
+  .profile-since { font-size: 11px; color: var(--mist); margin-top: 2px; }
+  .settings-section { margin-bottom: 24px; }
+  .settings-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px; font-weight: 500; }
+  .settings-row { display: flex; flex-direction: column; gap: 8px; }
+  .settings-item { display: flex; align-items: center; justify-content: space-between; background: rgba(45,74,45,0.25); border: 1px solid rgba(106,171,126,0.1); border-radius: 14px; padding: 12px 14px; }
+  .settings-item-left { display: flex; align-items: center; gap: 10px; }
+  .settings-item-icon { font-size: 1.1rem; }
+  .settings-item-text { font-size: 13px; color: var(--cream); }
+  .settings-item-value { font-size: 12px; color: var(--mist); }
+  .toggle { width: 40px; height: 22px; border-radius: 11px; background: rgba(106,171,126,0.2); border: 1px solid rgba(106,171,126,0.3); cursor: pointer; position: relative; transition: background 0.2s; }
+  .toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--mist); transition: transform 0.2s; }
+  .toggle.on { background: var(--fern); border-color: var(--fern); }
+  .toggle.on::after { transform: translateX(18px); background: var(--forest); }
+
+  .premium-banner { margin: 0 24px 24px; background: linear-gradient(135deg, rgba(200,169,110,0.12), rgba(212,148,74,0.08)); border: 1px solid rgba(200,169,110,0.2); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+  .premium-text { flex: 1; }
+  .premium-title { font-size: 14px; color: var(--warm-white); font-weight: 600; margin-bottom: 2px; }
+  .premium-sub { font-size: 12px; color: var(--mist); }
+  .premium-cta { background: linear-gradient(135deg, var(--gold), var(--amber)); color: var(--forest); border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+  .premium-cta:hover { opacity: 0.9; }
+
+  .paywall-modal { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(20,40,20,0.88); backdrop-filter: blur(16px); align-items: flex-end; justify-content: center; }
+  .paywall-modal.show { display: flex; }
+  .paywall-sheet { width: 100%; max-width: 430px; background: linear-gradient(175deg, #2a3a2a, #1e2e1e); border: 1px solid rgba(106,171,126,0.18); border-radius: 28px 28px 0 0; padding: 12px 24px 40px; animation: slideUp 0.38s cubic-bezier(0.32,0.72,0,1); max-height: 92dvh; overflow-y: auto; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .paywall-handle { width: 40px; height: 4px; border-radius: 2px; background: rgba(106,171,126,0.25); margin: 8px auto 20px; }
+  .paywall-icon { font-size: 44px; text-align: center; margin-bottom: 12px; }
+  .paywall-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--warm-white); text-align: center; margin-bottom: 8px; }
+  .paywall-sub { font-size: 14px; color: var(--mist); text-align: center; line-height: 1.6; margin-bottom: 24px; }
+  .mh-plan { border-radius: 16px; padding: 16px; cursor: pointer; transition: all 0.2s; text-align: center; border: 2px solid transparent; margin-bottom: 10px; }
+  .mh-plan.selected { border-color: var(--fern); background: rgba(106,171,126,0.15); }
+  .mh-plan:not(.selected) { border-color: rgba(106,171,126,0.15); background: rgba(45,74,45,0.2); }
+  .mh-plan-price { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--warm-white); line-height: 1; }
+  .mh-plan-period { font-size: 0.65rem; color: var(--text-dim); letter-spacing: 2px; margin-top: 4px; text-transform: uppercase; }
+  .mh-plan-desc { font-size: 0.72rem; color: var(--mist); margin-top: 6px; }
+  .mh-plan.bundle { position: relative; padding-top: 24px; }
+  .mh-plan .best-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--gold), var(--amber)); color: #1e2e1e; font-size: 0.6rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.05em; }
+  .mh-plan.bundle .mh-plan-price { color: var(--gold); }
+  .mh-buy-btn { width: 100%; background: linear-gradient(135deg, var(--sage), var(--fern)); color: var(--forest); border: none; border-radius: 16px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-bottom: 12px; transition: opacity 0.2s; }
+  .mh-buy-btn:hover { opacity: 0.9; }
+  .mh-promo-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .mh-promo-input { flex: 1; background: rgba(45,74,45,0.4); border: 1px solid rgba(106,171,126,0.2); border-radius: 12px; padding: 11px 14px; font-size: 0.9rem; color: var(--cream); font-family: 'DM Sans', sans-serif; outline: none; text-transform: uppercase; letter-spacing: 1px; }
+  .mh-promo-input:focus { border-color: var(--fern); }
+  .mh-promo-input::placeholder { text-transform: none; letter-spacing: 0; color: var(--text-dim); }
+  .mh-promo-btn { padding: 11px 16px; background: rgba(106,171,126,0.1); border: 1px solid rgba(106,171,126,0.25); border-radius: 12px; color: var(--fern); font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+  .mh-promo-msg { font-size: 0.75rem; min-height: 18px; text-align: center; margin-bottom: 8px; }
+  .mh-close { display: block; text-align: center; margin-top: 12px; font-size: 0.75rem; color: var(--text-dim); cursor: pointer; }
+
+  /* ══ ASMR SCREEN (micro-habits) ══ */
+  #screen-asmr { display: none; flex-direction: column; }
+  #screen-asmr.active { display: flex; }
+  .asmr-mh-header { padding: 20px 24px 14px; border-bottom: 1px solid rgba(106,171,126,0.12); }
+  .asmr-mh-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--warm-white); margin-bottom: 4px; }
+  .asmr-mh-sub { font-size: 0.78rem; color: var(--mist); }
+  .asmr-mh-playlist { flex: 1; overflow-y: auto; padding: 14px 24px 8px; display: flex; flex-direction: column; gap: 10px; scrollbar-width: none; }
+  .asmr-mh-playlist::-webkit-scrollbar { display: none; }
+  .asmr-mh-playlist-label { font-size: 0.6rem; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; font-weight: 500; }
+  .asmr-mh-item { display: flex; gap: 12px; align-items: center; background: rgba(45,74,45,0.25); border: 1px solid rgba(106,171,126,0.12); border-radius: 14px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; }
+  .asmr-mh-item:hover { border-color: rgba(106,171,126,0.3); }
+  .asmr-mh-item.active { border-color: rgba(106,171,126,0.5); background: rgba(106,171,126,0.1); }
+  .asmr-mh-thumb { width: 60px; height: 44px; border-radius: 8px; overflow: hidden; background: var(--moss); flex-shrink: 0; }
+  .asmr-mh-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+  .asmr-mh-info { flex: 1; }
+  .asmr-mh-name { font-size: 0.82rem; color: var(--warm-white); font-weight: 500; margin-bottom: 2px; line-height: 1.3; }
+  .asmr-mh-desc { font-size: 0.68rem; color: var(--mist); line-height: 1.4; }
+  .asmr-mh-play { width: 32px; height: 32px; border-radius: 50%; background: rgba(106,171,126,0.15); border: 1px solid rgba(106,171,126,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; color: var(--sage); }
+  .asmr-mh-item.active .asmr-mh-play { background: var(--sage); color: var(--forest); }
+  .asmr-mh-player { flex-shrink: 0; background: #000; aspect-ratio: 16/9; max-height: 35vh; position: relative; }
+  .asmr-mh-player iframe { width: 100%; height: 100%; border: none; display: block; }
+  .asmr-mh-play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .asmr-mh-play-overlay.playing { display: none; }
+  .asmr-mh-play-btn-big { width: 56px; height: 56px; border-radius: 50%; background: rgba(106,171,126,0.9); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--forest); box-shadow: 0 4px 20px rgba(106,171,126,0.5); transition: transform 0.2s; }
+  .asmr-mh-play-btn-big:hover { transform: scale(1.1); }
+  .asmr-mh-controls { flex-shrink: 0; padding: 10px 24px 14px; background: rgba(26,46,26,0.95); border-top: 1px solid rgba(106,171,126,0.12); backdrop-filter: blur(20px); display: flex; align-items: center; gap: 10px; }
+  .asmr-mh-ctrl-btn { background: rgba(106,171,126,0.08); border: 1px solid rgba(106,171,126,0.2); border-radius: 10px; padding: 7px 12px; font-size: 0.75rem; color: var(--sage); cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .asmr-mh-ctrl-btn:hover { background: rgba(106,171,126,0.16); }
+  .asmr-mh-ctrl-btn.active { background: rgba(106,171,126,0.18); border-color: rgba(106,171,126,0.45); }
+  .asmr-mh-spacer { flex: 1; }
+  .asmr-mh-now-playing { font-size: 0.68rem; color: var(--mist); max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .asmr-mh-now-playing span { color: var(--sage); }
 </style>
 </head>
 <body>
@@ -890,59 +670,42 @@
       </div>
       <div class="header-streak" id="streak-display">🔥 <span id="streak-num">0</span> day streak</div>
     </div>
-
     <div class="scroll-content">
       <div class="greeting-block">
         <div class="greeting-time" id="greeting-time">Good morning</div>
-        <div class="greeting-heading">
-          Build <em>small</em>,<br>grow consistently.
-        </div>
+        <div class="greeting-heading">Build <em>small</em>,<br>grow consistently.</div>
       </div>
-
       <div class="tod-pills">
         <div class="tod-pill active" onclick="filterByTime('all')">All</div>
         <div class="tod-pill" onclick="filterByTime('morning')">🌅 Morning</div>
         <div class="tod-pill" onclick="filterByTime('afternoon')">☀️ Afternoon</div>
         <div class="tod-pill" onclick="filterByTime('evening')">🌙 Evening</div>
       </div>
-
-      <!-- Daily Progress Ring -->
       <div class="daily-ring-wrap">
         <svg class="ring-svg" width="80" height="80" viewBox="0 0 80 80">
           <circle class="ring-bg" cx="40" cy="40" r="36"/>
           <circle class="ring-fill" id="progress-ring" cx="40" cy="40" r="36"/>
-          <text x="40" y="37" class="ring-label">
-            <tspan class="ring-num" id="ring-done">0</tspan>
-          </text>
-          <text x="40" y="51" class="ring-label">
-            <tspan class="ring-sub" id="ring-total">of 5</tspan>
-          </text>
+          <text x="40" y="37" class="ring-label"><tspan class="ring-num" id="ring-done">0</tspan></text>
+          <text x="40" y="51" class="ring-label"><tspan class="ring-sub" id="ring-total">of 5</tspan></text>
         </svg>
         <div class="ring-info">
           <div class="ring-info-title" id="ring-title">Start your rituals</div>
           <div class="ring-info-sub" id="ring-subtitle">Complete 5 micro habits today — just 5 minutes total.</div>
         </div>
       </div>
-
       <div class="section-label">TODAY'S RITUALS</div>
-
-      <div class="rituals-list" id="rituals-list">
-        <!-- Populated by JS -->
-      </div>
-
+      <div class="rituals-list" id="rituals-list"></div>
       <div class="quote-banner">
         <div class="quote-text" id="daily-quote">"We are what we repeatedly do. Excellence, then, is not an act, but a habit."</div>
         <div class="quote-author" id="quote-author">— Aristotle</div>
       </div>
-
       <div class="premium-banner">
         <div class="premium-text">
           <div class="premium-title">✨ Unlock Premium</div>
           <div class="premium-sub">50+ rituals, custom routines, sleep tracking & more</div>
         </div>
-        <button class="premium-cta" onclick="showPremiumModal()">$6.99/mo</button>
+        <button class="premium-cta" onclick="openPaywall()">$6.99/mo</button>
       </div>
-
     </div>
   </div>
 
@@ -959,9 +722,7 @@
         <div class="session-title" id="session-title">Deep Breathing</div>
       </div>
     </div>
-
     <div class="scroll-content">
-
       <div class="timer-wrap">
         <div id="breathe-wrap" style="display:none"><div class="breathe-anim"></div></div>
         <div class="timer-ring-wrap">
@@ -974,24 +735,14 @@
             <div class="timer-phase" id="timer-phase">Ready</div>
           </div>
         </div>
-
-        <div class="timer-desc" id="session-desc">
-          Take a moment to settle in. Find a comfortable position and prepare to begin.
-        </div>
-
+        <div class="timer-desc" id="session-desc">Take a moment to settle in. Find a comfortable position and prepare to begin.</div>
         <div class="timer-controls">
           <button class="ctrl-btn secondary" onclick="resetTimer()">↺ Reset</button>
-          <button class="ctrl-btn primary" id="timer-btn" onclick="toggleTimer()">
-            ▶ Begin
-          </button>
+          <button class="ctrl-btn primary" id="timer-btn" onclick="toggleTimer()">▶ Begin</button>
         </div>
       </div>
-
       <div class="section-label">RITUAL STEPS</div>
-      <div class="steps-list" id="steps-list">
-        <!-- Populated by JS -->
-      </div>
-
+      <div class="steps-list" id="steps-list"></div>
     </div>
   </div>
 
@@ -1001,7 +752,6 @@
       <div class="lib-title">Habit Library</div>
       <div class="lib-sub">Tap to add habits to your daily routine</div>
     </div>
-
     <div class="category-tabs" id="category-tabs">
       <div class="cat-tab active" onclick="filterCategory('all')">All</div>
       <div class="cat-tab" onclick="filterCategory('breath')">🌬️ Breath</div>
@@ -1010,11 +760,8 @@
       <div class="cat-tab" onclick="filterCategory('gratitude')">🙏 Gratitude</div>
       <div class="cat-tab" onclick="filterCategory('energy')">⚡ Energy</div>
     </div>
-
     <div class="scroll-content" style="padding:0 24px 20px">
-      <div class="habit-grid" id="habit-grid">
-        <!-- Populated by JS -->
-      </div>
+      <div class="habit-grid" id="habit-grid"></div>
     </div>
   </div>
 
@@ -1024,34 +771,20 @@
       <div class="prog-title">Your Progress</div>
       <div class="prog-sub">Every day counts. Keep building.</div>
     </div>
-
     <div class="scroll-content">
-
       <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-num" id="stat-streak">0</div>
-          <div class="stat-label">Day Streak</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="stat-total">0</div>
-          <div class="stat-label">Total Done</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="stat-best">0</div>
-          <div class="stat-label">Best Streak</div>
-        </div>
+        <div class="stat-card"><div class="stat-num" id="stat-streak">0</div><div class="stat-label">Day Streak</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total Done</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-best">0</div><div class="stat-label">Best Streak</div></div>
       </div>
-
       <div class="heatmap-wrap">
         <div class="heatmap-title">Last 28 Days</div>
         <div class="heatmap-grid" id="heatmap-grid"></div>
       </div>
-
       <div class="achieve-section">
         <div class="achieve-title">Achievements</div>
         <div class="achieve-row" id="badges-row"></div>
       </div>
-
     </div>
   </div>
 
@@ -1061,85 +794,51 @@
       <div class="profile-wrap">
         <div class="profile-top">
           <div class="avatar">🌱</div>
-          <div>
-            <div class="profile-name">Wellness Seeker</div>
-            <div class="profile-since">Member since today</div>
-          </div>
+          <div><div class="profile-name">Wellness Seeker</div><div class="profile-since">Member since today</div></div>
         </div>
-
         <div class="settings-section">
           <div class="settings-label">Reminders</div>
           <div class="settings-row">
             <div class="settings-item">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">🌅</div>
-                <div class="settings-item-text">Morning Reminder</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="settings-item-value">7:00 AM</span>
-                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">🌅</div><div class="settings-item-text">Morning Reminder</div></div>
+              <div style="display:flex;align-items:center;gap:10px"><span class="settings-item-value">7:00 AM</span><button class="toggle on" onclick="this.classList.toggle('on')"></button></div>
             </div>
             <div class="settings-item">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">🌙</div>
-                <div class="settings-item-text">Evening Reminder</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px">
-                <span class="settings-item-value">8:00 PM</span>
-                <button class="toggle" onclick="this.classList.toggle('on')"></button>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">🌙</div><div class="settings-item-text">Evening Reminder</div></div>
+              <div style="display:flex;align-items:center;gap:10px"><span class="settings-item-value">8:00 PM</span><button class="toggle" onclick="this.classList.toggle('on')"></button></div>
             </div>
           </div>
         </div>
-
         <div class="settings-section">
           <div class="settings-label">Preferences</div>
           <div class="settings-row">
             <div class="settings-item">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">🎯</div>
-                <div class="settings-item-text">Daily Goal</div>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">🎯</div><div class="settings-item-text">Daily Goal</div></div>
               <span class="settings-item-value" id="goal-display">5 habits</span>
             </div>
             <div class="settings-item">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">🔔</div>
-                <div class="settings-item-text">Sound Effects</div>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">🔔</div><div class="settings-item-text">Sound Effects</div></div>
               <button class="toggle on" onclick="this.classList.toggle('on')"></button>
             </div>
             <div class="settings-item">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">📳</div>
-                <div class="settings-item-text">Haptic Feedback</div>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">📳</div><div class="settings-item-text">Haptic Feedback</div></div>
               <button class="toggle on" onclick="this.classList.toggle('on')"></button>
             </div>
           </div>
         </div>
-
         <div class="settings-section">
           <div class="settings-label">About</div>
           <div class="settings-row">
             <div class="settings-item">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">🌿</div>
-                <div class="settings-item-text">Micro Habits</div>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">🌿</div><div class="settings-item-text">Micro Habits</div></div>
               <span class="settings-item-value">v1.0</span>
             </div>
             <div class="settings-item" onclick="showToast('Built with ❤️ by Toastid Tech LLC')">
-              <div class="settings-item-left">
-                <div class="settings-item-icon">🍞</div>
-                <div class="settings-item-text">Toastid Tech LLC</div>
-              </div>
+              <div class="settings-item-left"><div class="settings-item-icon">🍞</div><div class="settings-item-text">Toastid Tech LLC</div></div>
               <span class="settings-item-value">toastidtech.com</span>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -1148,8 +847,7 @@
   <nav class="bottom-nav">
     <button class="nav-btn active" id="nav-home" onclick="navigate('home')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9,22 9,12 15,12 15,22"/>
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
       </svg>
       Home
     </button>
@@ -1168,514 +866,319 @@
     </button>
     <button class="nav-btn" id="nav-profile" onclick="navigate('profile')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
       </svg>
       Profile
     </button>
   </nav>
 
+  <!-- ══ COMPLETION OVERLAY ══ -->
+  <div class="completion-overlay" id="completionOverlay">
+    <div class="completion-emoji">🌿</div>
+    <div class="completion-title" id="completionTitle">Well done!</div>
+    <div class="completion-sub" id="completionSub">You completed your ritual. Keep building this habit.</div>
+    <div class="completion-streak" id="completionStreak">🔥 1 day streak</div>
+    <button class="completion-btn" onclick="closeCompletion()">Continue</button>
+  </div>
 
-</div><!-- /app -->
-
-  <!-- ══ LEAD CAPTURE MODAL (Freemium Gate) ══ -->
-  <div class="modal-overlay" id="lead-modal">
-    <div class="modal-sheet">
-      <div class="modal-handle"></div>
-      <div class="modal-icon">🌿</div>
-      <div class="modal-title">Welcome to<br>Micro Habits</div>
-      <div class="modal-sub">5 minutes a day. Real change over time.<br>Enter your info to start your free journey.</div>
-
-      <div class="form-group">
-        <label class="form-label">Your Name</label>
-        <input class="form-input" id="lead-name" type="text" placeholder="First name" autocomplete="given-name">
-        <div class="form-error-msg" id="lead-name-err">Please enter your name</div>
+  <!-- ══ ASMR SCREEN ══ -->
+  <div id="screen-asmr" class="screen">
+    <div class="asmr-mh-header">
+      <div class="asmr-mh-title">🌙 Wind Down</div>
+      <div class="asmr-mh-sub">Ambient sounds for your evening ritual</div>
+    </div>
+    <div class="asmr-mh-playlist" id="asmrMhPlaylist"></div>
+    <div class="asmr-mh-player">
+      <div class="asmr-mh-play-overlay" id="asmrMhPlayOverlay">
+        <div class="asmr-mh-play-btn-big">▶</div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" id="lead-email" type="email" placeholder="you@example.com" autocomplete="email">
-        <div class="form-error-msg" id="lead-email-err">Please enter a valid email</div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Phone <span class="form-optional">optional</span></label>
-        <input class="form-input" id="lead-phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel">
-      </div>
-
-      <button class="form-submit" id="lead-submit-btn" onclick="submitLead()">
-        🌱 Start for Free
-      </button>
-
-      <div class="form-legal">
-        By continuing you agree to receive occasional wellness tips<br>
-        from Toastid Tech LLC. No spam — ever. Unsubscribe anytime.
-      </div>
+      <iframe id="asmrMhIframe" src="" allow="autoplay"></iframe>
+    </div>
+    <div class="asmr-mh-controls">
+      <button class="asmr-mh-ctrl-btn" id="asmrMhPrevBtn">⏮</button>
+      <button class="asmr-mh-ctrl-btn" id="asmrMhPlayBtn" onclick="asmrMhTogglePlay()">▶</button>
+      <button class="asmr-mh-ctrl-btn" id="asmrMhNextBtn">⏭</button>
+      <div class="asmr-mh-spacer"></div>
+      <div class="asmr-mh-now-playing" id="asmrMhNowPlaying">Select a sound</div>
+      <button class="asmr-mh-ctrl-btn" id="asmrMhAutoBtn" onclick="asmrMhToggleAuto()">⟳ Auto</button>
     </div>
   </div>
 
-  <!-- ══ PREMIUM PAYWALL MODAL ══ -->
-  <div class="modal-overlay" id="premium-modal">
-    <div class="modal-sheet">
-      <div class="modal-handle"></div>
-      <div class="modal-icon">✨</div>
-      <div class="modal-title">Unlock Premium</div>
-      <div class="modal-sub">Everything in free, plus the full toolkit<br>to build lasting wellness.</div>
+  <!-- ══ PAYWALL MODAL ══ -->
+  <div class="paywall-modal" id="paywallModal" onclick="handleOverlayClick(event)"></div>
 
-      <div class="premium-features">
-        <div class="premium-feature">
-          <div class="pf-icon">📚</div>
-          <div class="pf-text"><strong>50+ Guided Rituals</strong>Advanced breath, movement, sleep & focus habits</div>
-        </div>
-        <div class="premium-feature">
-          <div class="pf-icon">🎨</div>
-          <div class="pf-text"><strong>Custom Routine Builder</strong>Design your own morning, afternoon & evening flows</div>
-        </div>
-        <div class="premium-feature">
-          <div class="pf-icon">😴</div>
-          <div class="pf-text"><strong>Sleep Protocol</strong>21-night sleep reset with wind-down sequences</div>
-        </div>
-        <div class="premium-feature">
-          <div class="pf-icon">📊</div>
-          <div class="pf-text"><strong>Deep Analytics</strong>Mood trends, habit scores & weekly insights</div>
-        </div>
-        <div class="premium-feature">
-          <div class="pf-icon">🔔</div>
-          <div class="pf-text"><strong>Smart Reminders</strong>Personalized nudges based on your schedule</div>
-        </div>
-      </div>
-
-      <div class="price-block">
-        <div class="price-main">$6.99</div>
-        <div class="price-period">per month · cancel anytime</div>
-        <div class="price-note">🎯 Less than a cup of coffee a week</div>
-      </div>
-
-      <button class="premium-cta-btn" onclick="goToPremiumCheckout()">
-        ✨ Unlock Premium Now →
-      </button>
-
-      <div class="modal-divider"><span>have a promo code?</span></div>
-
-      <div style="display:flex;gap:10px;margin-bottom:12px">
-        <input class="form-input" id="promo-input" type="text" placeholder="Enter code"
-               style="text-transform:uppercase;letter-spacing:0.1em;flex:1"
-               oninput="this.value=this.value.toUpperCase()">
-        <button onclick="applyPromo()" style="
-          background:rgba(45,74,45,0.5);border:1px solid rgba(106,171,126,0.25);
-          color:var(--fern);border-radius:14px;padding:0 18px;
-          font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-          cursor:pointer;white-space:nowrap">Apply</button>
-      </div>
-      <div class="form-error-msg" id="promo-err" style="margin-bottom:10px">Invalid promo code</div>
-
-      <span class="modal-close-link" onclick="closePremiumModal()">Stay on free plan</span>
-    </div>
-  </div>
-
-<div class="completion-overlay" id="completion-overlay">
-  <div class="completion-emoji" id="comp-emoji">🎉</div>
-  <div class="completion-title" id="comp-title">Ritual Complete!</div>
-  <div class="completion-sub" id="comp-sub">You showed up for yourself today.<br>That's everything.</div>
-  <div class="completion-streak" id="comp-streak">🔥 1 day streak</div>
-  <button class="completion-btn" onclick="closeCompletion()">Continue →</button>
 </div>
-
-<!-- Toast -->
-<div id="toast" style="
-  position:fixed; bottom:100px; left:50%; transform:translateX(-50%) translateY(20px);
-  background:rgba(45,74,45,0.95); border:1px solid rgba(106,171,126,0.3);
-  color:var(--cream); padding:10px 20px; border-radius:20px;
-  font-size:13px; z-index:500; opacity:0;
-  transition:all 0.3s; pointer-events:none; white-space:nowrap;
-"></div>
 
 <script>
 // ══════════════════════════════════════
-// DATA
+// MICRO HABITS — PAYMENT & ACCESS SYSTEM
 // ══════════════════════════════════════
+const SQUARE_MH_STANDALONE = 'https://square.link/u/YOUR_MH_STANDALONE_ID';
+const SQUARE_MH_BUNDLE     = 'https://square.link/u/wAJSJVTD';
+const MH_ACCESS_KEY        = 'mhAccess';
+const MH_PROGRESS_KEY      = 'mhProgress';
+const PROMO_CODE_MH        = 'MICRO2026';
+var selectedMHPlan = 'standalone';
 
-const HABITS_DB = [
-  {
-    id: 'deep-breath', name: 'Deep Breathing', icon: '🌬️', category: 'breath',
-    duration: 60, time: 'morning',
-    color: '#6aab7e', colorBg: 'rgba(106,171,126,0.15)',
-    desc: 'Activate your parasympathetic nervous system with 4-7-8 breathing.',
-    steps: [
-      'Find a comfortable seated position. Close your eyes.',
-      'Inhale slowly through your nose for 4 counts.',
-      'Hold your breath gently for 7 counts.',
-      'Exhale completely through your mouth for 8 counts.',
-      'Repeat this cycle 4 times, then breathe naturally.'
-    ],
-    breathe: true
-  },
-  {
-    id: 'gratitude', name: 'Gratitude Scan', icon: '🙏', category: 'gratitude',
-    duration: 60, time: 'morning',
-    color: '#c8a96e', colorBg: 'rgba(200,169,110,0.15)',
-    desc: 'Name three specific things you are grateful for right now.',
-    steps: [
-      'Take one slow, deep breath to center yourself.',
-      'Think of something small you\'re grateful for today.',
-      'Name one person who has helped or supported you.',
-      'Identify one thing about your body or health you appreciate.',
-      'Hold these thoughts for 20 seconds, then smile.'
-    ]
-  },
-  {
-    id: 'body-scan', name: 'Body Scan', icon: '🧘', category: 'mind',
-    duration: 90, time: 'morning',
-    color: '#9b8abf', colorBg: 'rgba(155,138,191,0.15)',
-    desc: 'A brief mindful scan from head to toe to check in with yourself.',
-    steps: [
-      'Close your eyes and take 3 natural breaths.',
-      'Notice any tension in your head, face, and neck.',
-      'Scan down through shoulders, chest, and belly.',
-      'Check in with your hips, legs, and feet.',
-      'Take one final breath and gently open your eyes.'
-    ]
-  },
-  {
-    id: 'stretch', name: 'Morning Stretch', icon: '🤸', category: 'movement',
-    duration: 120, time: 'morning',
-    color: '#d4944a', colorBg: 'rgba(212,148,74,0.15)',
-    desc: 'Wake up your body with gentle movement after sleep.',
-    steps: [
-      'Stand tall and reach both arms overhead — 10 seconds.',
-      'Roll your shoulders back 5 times, then forward 5 times.',
-      'Gentle neck rolls — 3 each direction, slow and smooth.',
-      'Forward fold — let your arms hang heavy for 15 seconds.',
-      'Rise up slowly and shake out your hands and wrists.'
-    ]
-  },
-  {
-    id: 'affirmation', name: 'Power Affirmation', icon: '✨', category: 'mind',
-    duration: 60, time: 'morning',
-    color: '#6aab7e', colorBg: 'rgba(106,171,126,0.15)',
-    desc: 'Speak your intentions into existence with a focused affirmation.',
-    steps: [
-      'Stand or sit with your spine straight.',
-      'Take one deep breath, then look straight ahead.',
-      'Say aloud: "I am capable, focused, and ready for today."',
-      'Say aloud: "I choose calm over chaos, growth over comfort."',
-      'Take a final breath and carry this intention into your day.'
-    ]
-  },
-  {
-    id: 'hydrate', name: 'Mindful Hydration', icon: '💧', category: 'energy',
-    duration: 60, time: 'morning',
-    color: '#4a9ebe', colorBg: 'rgba(74,158,190,0.15)',
-    desc: 'Intentionally rehydrate your body after sleep with full presence.',
-    steps: [
-      'Pour a full glass of water. Hold it in both hands.',
-      'Notice the temperature and weight of the glass.',
-      'Take your first sip slowly and mindfully.',
-      'Drink the full glass in deliberate, unhurried sips.',
-      'Set an intention for the day as you finish.'
-    ]
-  },
-  {
-    id: 'box-breath', name: 'Box Breathing', icon: '⬜', category: 'breath',
-    duration: 90, time: 'afternoon',
-    color: '#6aab7e', colorBg: 'rgba(106,171,126,0.15)',
-    desc: 'The same technique used by Navy SEALs to reset under pressure.',
-    steps: [
-      'Sit upright. Exhale fully to empty your lungs.',
-      'Inhale for exactly 4 counts, filling from the belly up.',
-      'Hold at the top for 4 counts — stay relaxed.',
-      'Exhale for 4 counts, releasing slowly and fully.',
-      'Hold empty for 4 counts. Repeat 4-6 cycles.'
-    ],
-    breathe: true
-  },
-  {
-    id: 'desk-reset', name: 'Desk Reset', icon: '💼', category: 'movement',
-    duration: 60, time: 'afternoon',
-    color: '#d4944a', colorBg: 'rgba(212,148,74,0.15)',
-    desc: 'Break the sitting spell and re-energize your afternoon.',
-    steps: [
-      'Stand up from your desk and shake out your arms.',
-      'Do 10 slow calf raises, holding the top for 1 second each.',
-      'Roll your wrists 5x each direction.',
-      'Do 5 chest-opening arm circles — wide and deliberate.',
-      'Stand tall for 10 seconds before sitting back down.'
-    ]
-  },
-  {
-    id: 'focus-reset', name: 'Focus Reset', icon: '🎯', category: 'mind',
-    duration: 60, time: 'afternoon',
-    color: '#9b8abf', colorBg: 'rgba(155,138,191,0.15)',
-    desc: 'Clear mental fog and re-engage with your most important task.',
-    steps: [
-      'Close all tabs and apps. Set your phone face down.',
-      'Write one sentence: "My most important task right now is..."',
-      'Take 5 slow breaths — one for each finger.',
-      'Re-read what you wrote. Commit to just 10 minutes on it.',
-      'Begin. Let momentum carry you further.'
-    ]
-  },
-  {
-    id: 'wind-down', name: 'Evening Wind-Down', icon: '🌙', category: 'mind',
-    duration: 120, time: 'evening',
-    color: '#7b9bbf', colorBg: 'rgba(123,155,191,0.15)',
-    desc: 'Transition your nervous system from "on" to "off" mode.',
-    steps: [
-      'Dim the lights. Put your phone in another room if possible.',
-      'Take 5 deep, slow breaths — exhale twice as long as inhale.',
-      'Name one thing that went well today, however small.',
-      'Release any unfinished thoughts — write them down if needed.',
-      'Set your intention for tomorrow in one clear sentence.'
-    ]
-  },
-  {
-    id: 'journal', name: 'Micro Journal', icon: '📓', category: 'gratitude',
-    duration: 90, time: 'evening',
-    color: '#c8a96e', colorBg: 'rgba(200,169,110,0.15)',
-    desc: '3 questions. 3 minutes. A clearer mind before sleep.',
-    steps: [
-      'Open your journal or notes app.',
-      'Write: "Today I am proud of..." (1-2 sentences)',
-      'Write: "Today I learned..." (1 sentence)',
-      'Write: "Tomorrow I will focus on..." (1 sentence)',
-      'Close the journal. Your mind can rest now.'
-    ]
-  },
-  {
-    id: 'cold-splash', name: 'Cold Splash', icon: '🚿', category: 'energy',
-    duration: 60, time: 'morning',
-    color: '#4a9ebe', colorBg: 'rgba(74,158,190,0.15)',
-    desc: 'A 20-second cold water face splash to spike alertness and mood.',
-    steps: [
-      'Lean over your sink. Take one full breath.',
-      'Turn the water to cold. Let it run for 5 seconds.',
-      'Splash cold water on your face 5 times.',
-      'Cup cold water in your hands and hold your face in it for 5 seconds.',
-      'Pat dry. Notice the immediate shift in alertness.'
-    ]
-  }
-];
-
-const QUOTES = [
-  { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
-  { text: "Small daily improvements are the key to staggering long-term results.", author: "Robin Sharma" },
-  { text: "You don't rise to the level of your goals. You fall to the level of your systems.", author: "James Clear" },
-  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-  { text: "A year from now you'll wish you had started today.", author: "Karen Lamb" },
-  { text: "Take care of your body. It's the only place you have to live.", author: "Jim Rohn" },
-  { text: "The groundwork of all happiness is health.", author: "Leigh Hunt" }
-];
-
-const BADGES = [
-  { id: 'first', name: 'First Step', icon: '🌱', req: 1, type: 'total' },
-  { id: 'week', name: '7-Day Run', icon: '🔥', req: 7, type: 'streak' },
-  { id: 'ten', name: 'Ten Done', icon: '💪', req: 10, type: 'total' },
-  { id: 'month', name: '30-Day Pro', icon: '🏆', req: 30, type: 'streak' },
-  { id: 'fifty', name: 'Half Century', icon: '⭐', req: 50, type: 'total' },
-  { id: 'zen', name: 'Zen Master', icon: '🧘', req: 100, type: 'total' }
-];
-
-// ══════════════════════════════════════
-// STATE
-// ══════════════════════════════════════
-
-let state = loadState();
-let timerInterval = null;
-let timerRunning = false;
-let timerSeconds = 0;
-let timerMax = 300;
-let currentHabitId = null;
-let currentFilter = 'all';
-let currentCatFilter = 'all';
-let activeScreen = 'home';
-
-function loadState() {
-  try {
-    const saved = localStorage.getItem('microhabits_state');
-    if (saved) return JSON.parse(saved);
-  } catch(e) {}
-  return {
-    streak: 0,
-    bestStreak: 0,
-    totalDone: 0,
-    completedToday: [],
-    lastCompletedDate: null,
-    history: [], // array of {date, count}
-    routine: ['deep-breath', 'gratitude', 'stretch', 'hydrate', 'box-breath']
-  };
+// ── Access ──
+function hasAccessMH() { return localStorage.getItem(MH_ACCESS_KEY) === 'true'; }
+function grantAccessMH() {
+  localStorage.setItem(MH_ACCESS_KEY, 'true');
+  renderHome();
+  closePaywallMH();
 }
 
-function saveState() {
-  try { localStorage.setItem('microhabits_state', JSON.stringify(state)); } catch(e) {}
+// ── Navigation ──
+var currentScreen = 'home';
+function navigate(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('screen-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  var navBtns = document.querySelectorAll('.nav-btn');
+  if (navMap[id] !== undefined) navBtns[navMap[id]].classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'asmr') { initMHASMR(); }
+  currentScreen = id;
+  if (id === 'home') renderHome();
+  if (id === 'library') renderLibrary();
+  if (id === 'progress') renderProgress();
 }
 
-function todayStr() {
-  return new Date().toISOString().split('T')[0];
-}
-
-function checkNewDay() {
-  const today = todayStr();
-  if (state.lastCompletedDate !== today) {
-    // Check if streak should continue
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const ystStr = yesterday.toISOString().split('T')[0];
-    if (state.lastCompletedDate !== ystStr && state.completedToday.length > 0) {
-      state.streak = 0; // broken
-    }
-    state.completedToday = [];
-  }
-}
-
-// ══════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════
-
-function navigate(screen) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('screen-' + screen).classList.add('active');
-  document.getElementById('nav-' + screen)?.classList.add('active');
-  activeScreen = screen;
-
-  if (screen === 'home') { renderHome(); renderPremiumBanner(); }
-  if (screen === 'progress') renderProgress();
-  if (screen === 'library') renderLibrary();
-}
-
-function goBack() {
-  clearTimer();
-  navigate('home');
-}
-
-// ══════════════════════════════════════
-// HOME SCREEN
-// ══════════════════════════════════════
-
-function renderHome() {
-  checkNewDay();
-  setGreeting();
-  setQuote();
-  renderRituals();
-  updateRing();
-  updateStreakDisplay();
-}
-
+// ── Greeting ──
 function setGreeting() {
-  const h = new Date().getHours();
-  let g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('greeting-time').textContent = g;
+  var h = new Date().getHours();
+  var label = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting-time').textContent = label;
 }
 
-function setQuote() {
-  const q = QUOTES[new Date().getDay() % QUOTES.length];
-  document.getElementById('daily-quote').textContent = '"' + q.text + '"';
-  document.getElementById('quote-author').textContent = '— ' + q.author;
+// ── Time filter ──
+var currentFilter = 'all';
+function filterByTime(t) {
+  currentFilter = t;
+  document.querySelectorAll('.tod-pill').forEach(function(p) { p.classList.remove('active'); });
+  event.target.classList.add('active');
+  renderHome();
 }
 
-function renderRituals() {
-  const list = document.getElementById('rituals-list');
-  const routineHabits = state.routine.map(id => HABITS_DB.find(h => h.id === id)).filter(Boolean);
-  const filtered = currentFilter === 'all' ? routineHabits : routineHabits.filter(h => h.time === currentFilter);
+// ── Category filter ──
+var currentCategory = 'all';
+function filterCategory(c) {
+  currentCategory = c;
+  document.querySelectorAll('.cat-tab').forEach(function(t) { t.classList.remove('active'); });
+  event.target.classList.add('active');
+  renderLibrary();
+}
 
-  list.innerHTML = filtered.map(habit => {
-    const done = state.completedToday.includes(habit.id);
-    return `
-      <div class="ritual-card ${done ? 'completed' : ''}" 
-           style="--card-color:${habit.color};--card-color-bg:${habit.colorBg}"
-           onclick="startRitual('${habit.id}')">
-        <div class="ritual-icon">${habit.icon}</div>
-        <div class="ritual-info">
-          <div class="ritual-name">${habit.name}</div>
-          <div class="ritual-meta">${habit.time.charAt(0).toUpperCase() + habit.time.slice(1)} · ${habit.duration}s</div>
-        </div>
-        <div class="ritual-check">
-          <svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20,6 9,17 4,12"/>
-          </svg>
-        </div>
-      </div>
-    `;
+// ── ASMR (Micro Habits) ──
+var MH_ASMR_VIDEOS = [
+  { id: '2ater-FjZ', name: 'Rain on Tent', desc: 'Steady rain for deep sleep' },
+  { id: 'uXvE6M6RObs', name: 'Thunderstorm', desc: 'Thunder & rain for relaxation' },
+  { id: 'mgmCoT3T3CY', name: 'Fireplace Crackle', desc: 'Cozy fire sounds at night' },
+  { id: 'iqVDb1j6Dig', name: 'Ocean Waves', desc: 'Gentle waves on a quiet shore' },
+  { id: 'm5_jdrTAocY', name: 'Forest Rain', desc: 'Rain through tree canopy' },
+];
+var mhAsmrCurrent = 0;
+var mhAsmrPlaying = false;
+var mhAsmrAutoTimer = null;
+var mhAsmrAutoMode = false;
+
+function initMHASMR() {
+  var container = document.getElementById('asmrMhPlaylist');
+  container.innerHTML = '<div class="asmr-mh-playlist-label">Sound Library · Tap to play</div>' +
+    MH_ASMR_VIDEOS.map(function(v, i) {
+      return '<div class="asmr-mh-item' + (i === mhAsmrCurrent ? ' active' : '') + '" onclick="asmrMhPlay(' + i + ')">' +
+        '<div class="asmr-mh-thumb"><img src="https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:8px;opacity:0.7"></div>' +
+        '<div class="asmr-mh-info"><div class="asmr-mh-name">' + v.name + '</div><div class="asmr-mh-desc">' + v.desc + '</div></div>' +
+        '<div class="asmr-mh-play">' + (i === mhAsmrCurrent && mhAsmrPlaying ? '⏸' : '▶') + '</div>' +
+      '</div>';
+    }).join('');
+
+  document.getElementById('asmrMhPrevBtn').onclick = asmrMhPrev;
+  document.getElementById('asmrMhNextBtn').onclick = asmrMhNext;
+  document.getElementById('asmrMhPlayOverlay').onclick = function() { asmrMhTogglePlay(); };
+  updateMHAsmrNowPlaying();
+}
+
+function asmrMhPlay(idx) {
+  mhAsmrCurrent = idx;
+  mhAsmrPlaying = true;
+  var v = MH_ASMR_VIDEOS[idx];
+  document.getElementById('asmrMhIframe').src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&mute=0&controls=1&showinfo=0&rel=0&modestbranding=1';
+  document.getElementById('asmrMhPlayOverlay').classList.add('playing');
+  document.getElementById('asmrMhPlayBtn').textContent = '⏸';
+  updateMHAsmrNowPlaying();
+  renderMHAsmrPlaylist();
+  if (mhAsmrAutoMode) {
+    clearTimeout(mhAsmrAutoTimer);
+    mhAsmrAutoTimer = setTimeout(asmrMhNext, 60000);
+  }
+}
+
+function asmrMhTogglePlay() {
+  if (!mhAsmrPlaying) {
+    asmrMhPlay(mhAsmrCurrent);
+  } else {
+    mhAsmrPlaying = false;
+    document.getElementById('asmrMhPlayOverlay').classList.remove('playing');
+    document.getElementById('asmrMhIframe').src = '';
+    document.getElementById('asmrMhPlayBtn').textContent = '▶';
+    renderMHAsmrPlaylist();
+  }
+}
+
+function asmrMhPrev() {
+  asmrMhPlay((mhAsmrCurrent - 1 + MH_ASMR_VIDEOS.length) % MH_ASMR_VIDEOS.length);
+}
+
+function asmrMhNext() {
+  asmrMhPlay((mhAsmrCurrent + 1) % MH_ASMR_VIDEOS.length);
+}
+
+function asmrMhToggleAuto() {
+  mhAsmrAutoMode = !mhAsmrAutoMode;
+  var btn = document.getElementById('asmrMhAutoBtn');
+  if (mhAsmrAutoMode) {
+    btn.classList.add('active');
+    btn.textContent = '⟳ Auto On';
+    mhAsmrAutoTimer = setTimeout(asmrMhNext, 60000);
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '⟳ Auto';
+    clearTimeout(mhAsmrAutoTimer);
+  }
+}
+
+function updateMHAsmrNowPlaying() {
+  var v = MH_ASMR_VIDEOS[mhAsmrCurrent];
+  document.getElementById('asmrMhNowPlaying').innerHTML = 'Now: <span>' + v.name + '</span>';
+}
+
+function renderMHAsmrPlaylist() {
+  var items = document.querySelectorAll('.asmr-mh-item');
+  items.forEach(function(item, i) {
+    if (i === mhAsmrCurrent) {
+      item.classList.add('active');
+      item.querySelector('.asmr-mh-play').textContent = mhAsmrPlaying ? '⏸' : '▶';
+    } else {
+      item.classList.remove('active');
+      item.querySelector('.asmr-mh-play').textContent = '▶';
+    }
+  });
+}
+
+// ── ALL RITUALS DATA ──
+var ALL_RITUALS = [
+  { id: 'deep-breath', name: 'Deep Breathing', cat: 'breath', icon: '🌬', time: '3 min', desc: 'Calm your nervous system', color: '#6aab7e', bg: 'rgba(106,171,126,0.15)', premium: false, steps: [{ dur: 60, label: 'Inhale slowly' }, { dur: 60, label: 'Hold gently' }, { dur: 90, label: 'Exhale fully' }] },
+  { id: 'morning-stretch', name: 'Morning Stretch', cat: 'movement', icon: '🌅', time: '5 min', desc: 'Wake up your body', color: '#d4944a', bg: 'rgba(212,148,74,0.15)', premium: false, steps: [{ dur: 60, label: 'Neck rolls' }, { dur: 60, label: 'Shoulder circles' }, { dur: 90, label: 'Spine stretch' }] },
+  { id: 'gratitude', name: 'Gratitude Pause', cat: 'gratitude', icon: '🙏', time: '3 min', desc: 'Shift your focus to joy', color: '#c8a96e', bg: 'rgba(200,169,110,0.15)', premium: false, steps: [{ dur: 60, label: 'Think of one person' }, { dur: 60, label: 'Think of one moment' }, { dur: 60, label: 'Feel it fully' }] },
+  { id: 'body-scan', name: 'Body Scan', cat: 'mind', icon: '🧘', time: '7 min', desc: 'Release tension from head to toe', color: '#b89fd8', bg: 'rgba(184,159,216,0.15)', premium: true, steps: [{ dur: 60, label: 'Focus on feet' }, { dur: 60, label: 'Move upward' }, { dur: 60, label: 'Release each area' }] },
+  { id: 'energy-boost', name: 'Energy Boost', cat: 'energy', icon: '⚡', time: '4 min', desc: 'Recharge your vitality', color: '#c9a86a', bg: 'rgba(201,168,106,0.15)', premium: true, steps: [{ dur: 45, label: 'Quick breath in' }, { dur: 30, label: 'Snap exhale' }, { dur: 60, label: 'Feel the surge' }] },
+  { id: 'grounding', name: '5-4-3-2-1 Grounding', cat: 'mind', icon: '🌍', time: '5 min', desc: 'Anchor yourself in the present', color: '#7a9a6a', bg: 'rgba(122,154,106,0.15)', premium: true, steps: [{ dur: 60, label: '5 things you see' }, { dur: 60, label: '4 things you feel' }, { dur: 60, label: '3 things you hear' }] },
+  { id: 'cool-down', name: 'Evening Wind Down', cat: 'mind', icon: '🌙', time: '6 min', desc: 'Prepare your body for rest', color: '#7a6a9a', bg: 'rgba(122,106,154,0.15)', premium: true, steps: [{ dur: 90, label: 'Deep belly breaths' }, { dur: 60, label: 'Body relaxes' }, { dur: 60, label: 'Peace sets in' }] },
+  { id: 'focus-burst', name: 'Focus Burst', cat: 'energy', icon: '🎯', time: '4 min', desc: 'Sharpen your concentration', color: '#9a7a6a', bg: 'rgba(154,122,106,0.15)', premium: true, steps: [{ dur: 60, label: 'Inhale 4 seconds' }, { dur: 30, label: 'Hold 4 seconds' }, { dur: 60, label: 'Exhale 4 seconds' }] },
+];
+
+var DAILY_ROUTINE = ['deep-breath', 'morning-stretch', 'gratitude'];
+
+// ── Render Home ──
+function renderHome() {
+  var progress = JSON.parse(localStorage.getItem(MH_PROGRESS_KEY) || '{}');
+  var today = new Date().toDateString();
+  var doneToday = progress.completedDates ? progress.completedDates[today] || [] : [];
+  var streak = progress.streak || 0;
+  document.getElementById('streak-num').textContent = streak;
+  
+  // Update ring
+  var total = 3;
+  var done = doneToday.length;
+  var pct = total > 0 ? done / total : 0;
+  var circ = 226;
+  document.getElementById('progress-ring').style.strokeDashoffset = circ * (1 - pct);
+  document.getElementById('ring-done').textContent = done;
+  document.getElementById('ring-total').textContent = 'of ' + total;
+  document.getElementById('ring-title').textContent = done >= total ? 'Amazing! You did it 🌿' : 'Keep going!';
+  document.getElementById('ring-subtitle').textContent = done >= total ? 'All rituals complete today' : (total - done) + ' more ritual' + (total - done > 1 ? 's' : '') + ' to go';
+
+  // Render rituals
+  var container = document.getElementById('rituals-list');
+  var html = '';
+  DAILY_ROUTINE.forEach(function(id) {
+    var r = ALL_RITUALS.find(function(a) { return a.id === id; });
+    if (!r) return;
+    var isDone = doneToday.indexOf(id) !== -1;
+    var isLocked = r.premium && !hasAccessMH();
+    var cls = 'ritual-card';
+    if (isDone) cls += ' completed';
+    if (isLocked) cls += ' locked';
+    html += '<div class="' + cls + '" style="--card-color:' + r.color + ';--card-color-bg:' + r.bg + '" onclick="openRitual(\'' + r.id + '\')">' +
+      '<div class="ritual-icon">' + r.icon + '</div>' +
+      '<div class="ritual-info"><div class="ritual-name">' + r.name + '</div><div class="ritual-meta">' + r.time + ' · ' + r.desc + '</div></div>' +
+      '<div class="ritual-check"><svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg></div>' +
+    '</div>';
+  });
+  // Show more if premium
+  if (hasAccessMH()) {
+    ['body-scan', 'energy-boost', 'grounding', 'cool-down'].forEach(function(id) {
+      var r = ALL_RITUALS.find(function(a) { return a.id === id; });
+      if (!r) return;
+      var isDone = doneToday.indexOf(id) !== -1;
+      var cls = 'ritual-card';
+      if (isDone) cls += ' completed';
+      html += '<div class="' + cls + '" style="--card-color:' + r.color + ';--card-color-bg:' + r.bg + '" onclick="openRitual(\'' + r.id + '\')">' +
+        '<div class="ritual-icon">' + r.icon + '</div>' +
+        '<div class="ritual-info"><div class="ritual-name">' + r.name + '</div><div class="ritual-meta">' + r.time + ' · ' + r.desc + '</div></div>' +
+        '<div class="ritual-check"><svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg></div>' +
+      '</div>';
+    });
+  }
+  container.innerHTML = html || '<div style="padding:20px;color:var(--mist);text-align:center">No rituals yet. Add some from the library.</div>';
+}
+
+// ── Open Ritual ──
+var currentRitual = null;
+var timerRunning = false;
+var timerSeconds = 0;
+var timerInterval = null;
+var currentStep = 0;
+
+function openRitual(id) {
+  var r = ALL_RITUALS.find(function(a) { return a.id === id; });
+  if (!r) return;
+  if (r.premium && !hasAccessMH()) { openPaywallMH(); return; }
+  currentRitual = r;
+  currentStep = 0;
+  timerRunning = false;
+  timerSeconds = r.steps[0] ? r.steps[0].dur : 60;
+  document.getElementById('session-cat').textContent = r.cat.toUpperCase() + ' RITUAL';
+  document.getElementById('session-title').textContent = r.name;
+  document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+  document.getElementById('timer-phase').textContent = r.steps[0] ? r.steps[0].label : 'Begin';
+  document.getElementById('timer-btn').textContent = '▶ Begin';
+  renderSteps(r.steps);
+  navigate('session');
+}
+
+function renderSteps(steps) {
+  var container = document.getElementById('steps-list');
+  container.innerHTML = steps.map(function(s, i) {
+    return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(106,171,126,0.08)">' +
+      '<div style="width:28px;height:28px;border-radius:50%;background:rgba(106,171,126,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mist)">' + (i+1) + '</div>' +
+      '<div style="flex:1;font-size:14px;color:var(--cream)">' + s.label + '</div>' +
+      '<div style="font-size:12px;color:var(--mist)">' + s.dur + 's</div>' +
+    '</div>';
   }).join('');
 }
 
-function filterByTime(time) {
-  currentFilter = time;
-  document.querySelectorAll('.tod-pill').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
-  renderRituals();
-}
-
-function updateRing() {
-  const total = state.routine.length;
-  const done = state.completedToday.length;
-  const circ = 226;
-  const offset = circ - (done / total) * circ;
-  document.getElementById('progress-ring').style.strokeDashoffset = offset;
-  document.getElementById('ring-done').textContent = done;
-  document.getElementById('ring-total').textContent = 'of ' + total;
-
-  if (done === 0) {
-    document.getElementById('ring-title').textContent = 'Start your rituals';
-    document.getElementById('ring-subtitle').textContent = 'Just 5 minutes. You\'ve got this.';
-  } else if (done < total) {
-    document.getElementById('ring-title').textContent = `${done} of ${total} complete`;
-    document.getElementById('ring-subtitle').textContent = `${total - done} ritual${total - done > 1 ? 's' : ''} remaining today.`;
-  } else {
-    document.getElementById('ring-title').textContent = '🎉 All done today!';
-    document.getElementById('ring-subtitle').textContent = 'You\'ve completed all your rituals. Come back tomorrow!';
-    document.getElementById('progress-ring').style.stroke = '#c8a96e';
-  }
-}
-
-function updateStreakDisplay() {
-  document.getElementById('streak-num').textContent = state.streak;
-  document.getElementById('stat-streak').textContent = state.streak;
-  document.getElementById('stat-total').textContent = state.totalDone;
-  document.getElementById('stat-best').textContent = state.bestStreak;
-}
-
-// ══════════════════════════════════════
-// SESSION / TIMER
-// ══════════════════════════════════════
-
-function startRitual(id) {
-  const habit = HABITS_DB.find(h => h.id === id);
-  if (!habit) return;
-  currentHabitId = id;
-
-  document.getElementById('session-cat').textContent = habit.time.toUpperCase() + ' RITUAL';
-  document.getElementById('session-title').textContent = habit.name;
-  document.getElementById('session-desc').textContent = habit.desc;
-
-  // Breathing animation
-  document.getElementById('breathe-wrap').style.display = habit.breathe ? 'block' : 'none';
-
-  timerMax = habit.duration;
-  timerSeconds = habit.duration;
-  timerRunning = false;
-
-  document.getElementById('timer-btn').textContent = '▶ Begin';
-  document.getElementById('timer-phase').textContent = 'Ready';
-  renderTimerDisplay();
-  resetTimerRing();
-
-  // Render steps
-  const stepsList = document.getElementById('steps-list');
-  stepsList.innerHTML = habit.steps.map((step, i) => `
-    <div class="step-item ${i === 0 ? 'active-step' : ''}" id="step-${i}">
-      <div class="step-num">${i + 1}</div>
-      <div class="step-text">${step}</div>
-    </div>
-  `).join('');
-
-  navigate('session');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+function formatTime(s) {
+  var m = Math.floor(s / 60);
+  var sec = s % 60;
+  return m + ':' + String(sec).padStart(2, '0');
 }
 
 function toggleTimer() {
   if (timerRunning) {
-    pauseTimer();
+    stopTimer();
   } else {
     startTimer();
   }
@@ -1684,460 +1187,285 @@ function toggleTimer() {
 function startTimer() {
   timerRunning = true;
   document.getElementById('timer-btn').textContent = '⏸ Pause';
-  document.getElementById('timer-phase').textContent = 'In Progress';
-
-  const totalSteps = HABITS_DB.find(h => h.id === currentHabitId)?.steps.length || 5;
-
-  timerInterval = setInterval(() => {
+  var track = document.getElementById('timer-track');
+  var totalDur = currentRitual ? currentRitual.steps.reduce(function(a, s) { return a + s.dur; }, 0) : 0;
+  track.style.strokeDashoffset = 0;
+  track.style.transition = 'stroke-dashoffset ' + timerSeconds + 's linear';
+  timerInterval = setInterval(function() {
     timerSeconds--;
-
-    // Update step highlight
-    const elapsed = timerMax - timerSeconds;
-    const stepDur = timerMax / totalSteps;
-    const activeStep = Math.min(Math.floor(elapsed / stepDur), totalSteps - 1);
-    document.querySelectorAll('.step-item').forEach((el, i) => {
-      el.classList.remove('active-step', 'done-step');
-      if (i < activeStep) el.classList.add('done-step');
-      if (i === activeStep) el.classList.add('active-step');
-    });
-
-    renderTimerDisplay();
-    updateTimerRing();
-
+    document.getElementById('timer-display').textContent = formatTime(timerSeconds);
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
-      timerRunning = false;
-      completeRitual();
+      completeStep();
     }
   }, 1000);
 }
 
-function pauseTimer() {
-  clearInterval(timerInterval);
+function stopTimer() {
   timerRunning = false;
+  clearInterval(timerInterval);
   document.getElementById('timer-btn').textContent = '▶ Resume';
-  document.getElementById('timer-phase').textContent = 'Paused';
 }
 
 function resetTimer() {
-  clearTimer();
-  timerSeconds = timerMax;
-  timerRunning = false;
-  document.getElementById('timer-btn').textContent = '▶ Begin';
-  document.getElementById('timer-phase').textContent = 'Ready';
-  renderTimerDisplay();
-  resetTimerRing();
-  document.querySelectorAll('.step-item').forEach((el, i) => {
-    el.classList.remove('active-step', 'done-step');
-    if (i === 0) el.classList.add('active-step');
-  });
-}
-
-function clearTimer() {
-  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-}
-
-function renderTimerDisplay() {
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
-  document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2, '0')}`;
-}
-
-function updateTimerRing() {
-  const circ = 440;
-  const pct = timerSeconds / timerMax;
-  document.getElementById('timer-track').style.strokeDashoffset = circ * (1 - pct);
-  if (timerSeconds <= 10) {
-    document.getElementById('timer-track').style.stroke = '#d4944a';
+  stopTimer();
+  if (currentRitual && currentRitual.steps[0]) {
+    timerSeconds = currentRitual.steps[0].dur;
+    document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+    document.getElementById('timer-phase').textContent = currentRitual.steps[0].label;
+    document.getElementById('timer-btn').textContent = '▶ Begin';
   }
 }
 
-function resetTimerRing() {
-  document.getElementById('timer-track').style.strokeDashoffset = '0';
-  document.getElementById('timer-track').style.stroke = 'var(--fern)';
+function completeStep() {
+  if (!currentRitual) return;
+  var steps = currentRitual.steps;
+  currentStep++;
+  if (currentStep >= steps.length) {
+    completeRitual();
+  } else {
+    timerSeconds = steps[currentStep].dur;
+    document.getElementById('timer-phase').textContent = steps[currentStep].label;
+    document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+    startTimer();
+  }
 }
-
-// ══════════════════════════════════════
-// COMPLETION
-// ══════════════════════════════════════
 
 function completeRitual() {
-  const id = currentHabitId;
-  if (!id) return;
-
-  // Mark complete
-  if (!state.completedToday.includes(id)) {
-    state.completedToday.push(id);
-    state.totalDone++;
-
-    const today = todayStr();
-    if (state.lastCompletedDate !== today) {
-      state.streak++;
-      if (state.streak > state.bestStreak) state.bestStreak = state.streak;
-      state.lastCompletedDate = today;
-      // Record history
-      state.history.push({ date: today, count: state.completedToday.length });
-    } else {
-      // Update today's history
-      const idx = state.history.findIndex(h => h.date === today);
-      if (idx >= 0) state.history[idx].count = state.completedToday.length;
-      else state.history.push({ date: today, count: state.completedToday.length });
-    }
-    saveState();
+  if (!currentRitual) return;
+  var id = currentRitual.id;
+  var progress = JSON.parse(localStorage.getItem(MH_PROGRESS_KEY) || '{}');
+  var today = new Date().toDateString();
+  if (!progress.completedDates) progress.completedDates = {};
+  if (!progress.completedDates[today]) progress.completedDates[today] = [];
+  if (progress.completedDates[today].indexOf(id) === -1) {
+    progress.completedDates[today].push(id);
   }
+  progress.streak = (progress.streak || 0) + 1;
+  progress.total = (progress.total || 0) + 1;
+  if (progress.bestStreak < progress.streak) progress.bestStreak = progress.streak;
+  localStorage.setItem(MH_PROGRESS_KEY, JSON.stringify(progress));
+  showCompletion(currentRitual.name, progress.streak);
+}
 
-  const habit = HABITS_DB.find(h => h.id === id);
-  const allDone = state.completedToday.length >= state.routine.length;
-
-  document.getElementById('comp-emoji').textContent = allDone ? '🏆' : '🎉';
-  document.getElementById('comp-title').textContent = allDone ? 'All Rituals Complete!' : `${habit.name} Done!`;
-  document.getElementById('comp-sub').textContent = allDone
-    ? 'You completed every ritual today.\nThis is how transformation happens.'
-    : `You showed up for yourself.\nThat's what matters most.`;
-  document.getElementById('comp-streak').textContent = `🔥 ${state.streak} day streak`;
-  document.getElementById('completion-overlay').classList.add('show');
-
-  spawnConfetti(allDone ? 60 : 30);
+function showCompletion(name, streak) {
+  document.getElementById('completionTitle').textContent = name + ' complete! 🌿';
+  document.getElementById('completionSub').textContent = 'You\'re building momentum. Keep this streak going.';
+  document.getElementById('completionStreak').innerHTML = '🔥 ' + streak + ' day streak';
+  document.getElementById('completionOverlay').classList.add('show');
+  spawnConfetti();
 }
 
 function closeCompletion() {
-  document.getElementById('completion-overlay').classList.remove('show');
+  document.getElementById('completionOverlay').classList.remove('show');
   navigate('home');
 }
 
-function spawnConfetti(count) {
-  const colors = ['#6aab7e', '#c8a96e', '#d4944a', '#a8c5a0', '#faf7f2'];
-  for (let i = 0; i < count; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'confetti-piece';
-      el.style.cssText = `
-        left:${Math.random() * 100}vw;
-        top:-10px;
-        background:${colors[Math.floor(Math.random() * colors.length)]};
-        width:${Math.random() * 8 + 4}px;
-        height:${Math.random() * 8 + 4}px;
-        border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
-        animation-duration:${Math.random() * 2 + 1.5}s;
-        animation-delay:${Math.random() * 0.5}s;
-      `;
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 3000);
-    }, i * 40);
+function spawnConfetti() {
+  var colors = ['#6aab7e', '#c8a96e', '#d4944a', '#b89fd8', '#7abfa0'];
+  for (var i = 0; i < 40; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    piece.style.animationDelay = Math.random() * 0.5 + 's';
+    document.body.appendChild(piece);
+    setTimeout(function() { piece.remove(); }, 4000);
   }
 }
 
-// ══════════════════════════════════════
-// LIBRARY
-// ══════════════════════════════════════
+function goBack() {
+  stopTimer();
+  navigate('home');
+}
 
+// ── Library ──
 function renderLibrary() {
-  const grid = document.getElementById('habit-grid');
-  const filtered = currentCatFilter === 'all' ? HABITS_DB : HABITS_DB.filter(h => h.category === currentCatFilter);
-
-  grid.innerHTML = filtered.map(h => `
-    <div class="habit-tile ${state.routine.includes(h.id) ? 'in-routine' : ''}" onclick="toggleRoutine('${h.id}')">
-      <div class="habit-tile-icon">${h.icon}</div>
-      <div class="habit-tile-name">${h.name}</div>
-      <div class="habit-tile-dur">${h.duration}s · ${h.time}</div>
-      <div class="habit-added-badge">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20,6 9,17 4,12"/>
-        </svg>
-      </div>
-    </div>
-  `).join('');
+  var container = document.getElementById('habit-grid');
+  var filtered = currentCategory === 'all' ? ALL_RITUALS : ALL_RITUALS.filter(function(r) { return r.cat === currentCategory; });
+  container.innerHTML = filtered.map(function(r) {
+    var locked = r.premium && !hasAccessMH();
+    return '<div class="habit-card" onclick="' + (locked ? 'openPaywallMH()' : 'openRitual(\'' + r.id + '\')') + '">' +
+      '<div class="hc-icon">' + r.icon + '</div>' +
+      '<div class="hc-name">' + r.name + (locked ? ' 🔒' : '') + '</div>' +
+      '<div class="hc-time">' + r.time + ' · ' + r.desc + '</div>' +
+    '</div>';
+  }).join('');
 }
 
-function filterCategory(cat) {
-  currentCatFilter = cat;
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  renderLibrary();
-}
-
-function toggleRoutine(id) {
-  const idx = state.routine.indexOf(id);
-  if (idx >= 0) {
-    state.routine.splice(idx, 1);
-    showToast('Removed from routine');
-  } else {
-    state.routine.push(id);
-    showToast('Added to routine! ✓');
-  }
-  saveState();
-  renderLibrary();
-}
-
-// ══════════════════════════════════════
-// PROGRESS
-// ══════════════════════════════════════
-
+// ── Progress ──
 function renderProgress() {
-  updateStreakDisplay();
+  var progress = JSON.parse(localStorage.getItem(MH_PROGRESS_KEY) || '{}');
+  document.getElementById('stat-streak').textContent = progress.streak || 0;
+  document.getElementById('stat-total').textContent = progress.total || 0;
+  document.getElementById('stat-best').textContent = progress.bestStreak || 0;
   renderHeatmap();
   renderBadges();
 }
 
 function renderHeatmap() {
-  const grid = document.getElementById('heatmap-grid');
-  const today = new Date();
-  const cells = [];
-
-  for (let i = 27; i >= 0; i--) {
-    const d = new Date(today);
+  var grid = document.getElementById('heatmap-grid');
+  var days = [];
+  for (var i = 27; i >= 0; i--) {
+    var d = new Date();
     d.setDate(d.getDate() - i);
-    const ds = d.toISOString().split('T')[0];
-    const h = state.history.find(x => x.date === ds);
-    const isToday = i === 0;
-    const cls = isToday ? 'today' : (h?.count >= state.routine.length ? 'perfect' : (h?.count > 0 ? 'done' : ''));
-    cells.push(`<div class="heatmap-day ${cls}" title="${ds}"></div>`);
+    days.push(d);
   }
-
-  grid.innerHTML = cells.join('');
-}
-
-function renderBadges() {
-  const row = document.getElementById('badges-row');
-  row.innerHTML = BADGES.map(b => {
-    const earned = b.type === 'streak' ? state.streak >= b.req : state.totalDone >= b.req;
-    return `
-      <div class="badge ${earned ? 'earned' : 'locked'}">
-        <div class="badge-icon">${b.icon}</div>
-        <div class="badge-name">${b.name}</div>
-      </div>
-    `;
+  var progress = JSON.parse(localStorage.getItem(MH_PROGRESS_KEY) || '{}');
+  var today = new Date().toDateString();
+  grid.innerHTML = days.map(function(d) {
+    var key = d.toDateString();
+    var done = progress.completedDates && progress.completedDates[key] && progress.completedDates[key].length >= 3;
+    var isToday = d.toDateString() === today;
+    var cls = 'heatmap-day' + (done ? ' done' : '') + (isToday ? ' today' : '');
+    return '<div class="' + cls + '"></div>';
   }).join('');
 }
 
-// ══════════════════════════════════════
-// UTILS
-// ══════════════════════════════════════
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.opacity = '1';
-  t.style.transform = 'translateX(-50%) translateY(0)';
-  setTimeout(() => {
-    t.style.opacity = '0';
-    t.style.transform = 'translateX(-50%) translateY(20px)';
-  }, 2000);
+function renderBadges() {
+  var badges = [
+    { id: 'first', name: 'First Step', icon: '🌱', desc: 'Complete your first ritual' },
+    { id: 'week', name: '7-Day Streak', icon: '🔥', desc: '7 days in a row' },
+    { id: 'month', name: '30-Day Streak', icon: '⭐', desc: '30 days in a row' },
+    { id: 'five', name: '5 Rituals', icon: '✨', desc: 'Complete 5 total rituals' },
+    { id: 'twenty', name: '20 Rituals', icon: '💫', desc: 'Complete 20 total rituals' },
+    { id: 'perfect', name: 'Perfect Day', icon: '🏆', desc: 'Complete all daily rituals' },
+  ];
+  var progress = JSON.parse(localStorage.getItem(MH_PROGRESS_KEY) || '{}');
+  var earned = {};
+  if ((progress.streak || 0) >= 1) earned['first'] = true;
+  if ((progress.streak || 0) >= 7) earned['week'] = true;
+  if ((progress.streak || 0) >= 30) earned['month'] = true;
+  if ((progress.total || 0) >= 5) earned['five'] = true;
+  if ((progress.total || 0) >= 20) earned['twenty'] = true;
+  var today = new Date().toDateString();
+  if (progress.completedDates && progress.completedDates[today] && progress.completedDates[today].length >= 3) earned['perfect'] = true;
+  document.getElementById('badges-row').innerHTML = badges.map(function(b) {
+    var isEarned = earned[b.id];
+    return '<div class="badge ' + (isEarned ? 'earned' : 'locked') + '">' +
+      '<div class="badge-icon">' + b.icon + '</div>' +
+      '<div class="badge-name">' + b.name + '</div>' +
+    '</div>';
+  }).join('');
 }
 
-// ══════════════════════════════════════
-// LEAD CAPTURE & PAYWALL
-// ══════════════════════════════════════
-
-const SQUARE_URL = 'https://square.link/u/aBodVmFr';
-const FORMSPREE_URL = 'https://formspree.io/f/xeeryaze';
-
-function isLeadCaptured() {
-  try { return !!localStorage.getItem('mh_lead_captured'); } catch(e) { return false; }
+// ── PAYWALL — MICRO HABITS ──
+function openPaywallMH() {
+  selectedMHPlan = 'standalone';
+  document.getElementById('paywallModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { selectMHPlan('standalone'); }, 50);
 }
 
-function markLeadCaptured(name) {
-  try {
-    localStorage.setItem('mh_lead_captured', '1');
-    localStorage.setItem('mh_user_name', name);
-  } catch(e) {}
+function closePaywallMH() {
+  document.getElementById('paywallModal').classList.remove('show');
+  document.body.style.overflow = '';
+  document.getElementById('mhPromoMsg').innerHTML = '';
+  document.getElementById('mhPromoInput').value = '';
+  document.getElementById('mhBuyBtn').textContent = '✦ Continue →';
+  document.getElementById('mhBuyBtn').onclick = goToSquareMH;
+  var planSel = document.getElementById('mhPlanSelector');
+  if (planSel) planSel.style.display = 'flex';
+  var sub = document.getElementById('mhSheetSub');
+  if (sub) sub.textContent = 'Get unlimited access to 50+ rituals, custom routines, sleep tracking & more.';
 }
 
-function getUserName() {
-  try { return localStorage.getItem('mh_user_name') || ''; } catch(e) { return ''; }
-}
+function handleOverlayClick(e) { if (e.target === document.getElementById('paywallModal')) closePaywallMH(); }
 
-function showLeadModal() {
-  document.getElementById('lead-modal').classList.add('show');
-}
-
-function closeLeadModal() {
-  document.getElementById('lead-modal').classList.remove('show');
-}
-
-function showPremiumModal() {
-  document.getElementById('premium-modal').classList.add('show');
-}
-
-function closePremiumModal() {
-  document.getElementById('premium-modal').classList.remove('show');
-}
-
-function isPremiumUnlocked() {
-  try { return localStorage.getItem('mh_premium') === '1'; } catch(e) { return false; }
-}
-
-function unlockPremium() {
-  try { localStorage.setItem('mh_premium', '1'); } catch(e) {}
-}
-
-function applyPromo() {
-  const input = document.getElementById('promo-input');
-  const errEl = document.getElementById('promo-err');
-  const code  = (input.value || '').trim().toUpperCase();
-
-  errEl.classList.remove('show');
-  input.classList.remove('error');
-
-  if (code === 'TST2026') {
-    unlockPremium();
-    input.value = '';
-    closePremiumModal();
-    showToast('🎉 Premium unlocked! Welcome.');
-    // Update banner so it reflects unlocked state
-    renderPremiumBanner();
+function selectMHPlan(plan) {
+  selectedMHPlan = plan;
+  var so = document.getElementById('mhPlanStandalone');
+  var bu = document.getElementById('mhPlanBundle');
+  var btn = document.getElementById('mhBuyBtn');
+  if (plan === 'standalone') {
+    so.classList.add('selected');
+    so.classList.remove('bundle');
+    if (bu) { bu.classList.remove('selected'); bu.classList.add('bundle'); }
+    btn.textContent = '✦ Get Micro Habits — $6.99/mo →';
   } else {
-    input.classList.add('error');
-    errEl.classList.add('show');
+    if (bu) { bu.classList.add('selected'); bu.classList.remove('bundle'); }
+    so.classList.remove('selected');
+    so.classList.add('bundle');
+    btn.textContent = '🍞 Get Bundle — $19.99/mo →';
   }
 }
 
-function renderPremiumBanner() {
-  const banner = document.querySelector('.premium-banner');
-  if (!banner) return;
-  if (isPremiumUnlocked()) {
-    banner.innerHTML = \`
-      <div class="premium-text">
-        <div class="premium-title">✨ Premium Active</div>
-        <div class="premium-sub">Full access unlocked. Enjoy every ritual.</div>
-      </div>
-      <div style="font-size:22px">🏆</div>
-    \`;
-    banner.style.borderColor = 'rgba(106,171,126,0.35)';
-    banner.style.background = 'linear-gradient(135deg,rgba(74,124,89,0.18),rgba(45,74,45,0.12))';
+function goToSquareMH() {
+  var url = selectedMHPlan === 'bundle' ? SQUARE_MH_BUNDLE : SQUARE_MH_STANDALONE;
+  window.open(url, '_blank');
+  var sheetSub = document.getElementById('mhSheetSub');
+  var planSel = document.getElementById('mhPlanSelector');
+  var btn = document.getElementById('mhBuyBtn');
+  var msgEl = document.getElementById('mhPromoMsg');
+  if (planSel) planSel.style.display = 'none';
+  if (sheetSub) sheetSub.textContent = 'After completing your payment, paste your Square confirmation code below to unlock Micro Habits.';
+  if (btn) {
+    btn.textContent = '✓ Verify Payment';
+    btn.onclick = validateConfirmationMH;
   }
+  if (msgEl) msgEl.innerHTML = '';
 }
 
-function goToPremiumCheckout() {
-  try { localStorage.setItem('mh_premium_clicked', Date.now()); } catch(e) {}
-  closePremiumModal();
-  window.open(SQUARE_URL, '_blank');
-}
-
-async function submitLead() {
-  const nameEl   = document.getElementById('lead-name');
-  const emailEl  = document.getElementById('lead-email');
-  const phoneEl  = document.getElementById('lead-phone');
-  const nameErr  = document.getElementById('lead-name-err');
-  const emailErr = document.getElementById('lead-email-err');
-  const btn      = document.getElementById('lead-submit-btn');
-
-  [nameEl, emailEl].forEach(el => el.classList.remove('error'));
-  [nameErr, emailErr].forEach(el => el.classList.remove('show'));
-
-  const name  = nameEl.value.trim();
-  const email = emailEl.value.trim();
-  const phone = phoneEl.value.trim();
-  let valid = true;
-
-  if (!name) {
-    nameEl.classList.add('error'); nameErr.classList.add('show'); valid = false;
+function validateConfirmationMH() {
+  var code = document.getElementById('mhPromoInput').value.trim().toUpperCase();
+  var msg = document.getElementById('mhPromoMsg');
+  if (!code) {
+    msg.innerHTML = '<span style="color:var(--amber)">Please paste your Square confirmation code first.</span>';
+    return;
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    emailEl.classList.add('error'); emailErr.classList.add('show'); valid = false;
-  }
-  if (!valid) return;
-
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
-
-  try {
-    await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        source: 'Micro Habits PWA — Freemium Lead',
-        name, email,
-        phone: phone || 'Not provided',
-        date: new Date().toLocaleString(),
-        _subject: `New Micro Habits Lead: ${name}`
-      })
-    });
-  } catch(e) { /* fail silently */ }
-
-  markLeadCaptured(name);
-  btn.textContent = '✓ Welcome aboard!';
-
-  setTimeout(() => {
-    closeLeadModal();
-    const h = new Date().getHours();
-    const tod = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-    const greet = document.getElementById('greeting-time');
-    if (greet) greet.textContent = `${tod}, ${name.split(' ')[0]}`;
-    showToast(`Welcome, ${name.split(' ')[0]}! 🌿`);
-  }, 800);
-}
-
-// Close modals on outside tap
-document.getElementById('lead-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeLeadModal();
-});
-document.getElementById('premium-modal').addEventListener('click', function(e) {
-  if (e.target === this) closePremiumModal();
-});
-
-// ══════════════════════════════════════
-// INIT
-// ══════════════════════════════════════
-
-checkNewDay();
-renderHome();
-renderPremiumBanner();
-
-// Personalise greeting if returning user
-const _savedName = getUserName();
-if (_savedName) {
-  const _h = new Date().getHours();
-  const _tod = _h < 12 ? 'Good morning' : _h < 17 ? 'Good afternoon' : 'Good evening';
-  const _greet = document.getElementById('greeting-time');
-  if (_greet) _greet.textContent = `${_tod}, ${_savedName.split(' ')[0]}`;
-}
-
-// Show lead capture on first visit (after short delay)
-if (!isLeadCaptured()) {
-  setTimeout(showLeadModal, 900);
-}
-
-// PWA Install prompt
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  setTimeout(() => {
-    if (deferredPrompt && isLeadCaptured()) showToast('📲 Add to Home Screen for the full experience!');
-  }, 5000);
-});
-
-// Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    const swCode = `
-      const CACHE_NAME = 'micro-habits-v2';
-      self.addEventListener('install', e => {
-        e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(['/'])));
-        self.skipWaiting();
-      });
-      self.addEventListener('activate', e => {
-        e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))));
-        self.clients.claim();
-      });
-      self.addEventListener('fetch', e => {
-        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(res => {
-          if (!res || res.status !== 200 || res.type !== 'basic') return res;
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return res;
-        })));
-      });
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  msg.innerHTML = '<span style="color:var(--fern)">Verifying your payment... 🌿</span>';
+  
+  // Call validation endpoint
+  fetch('https://muddy-violet-2a0d.toastidtechllc.workers.dev/validate-order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      confirmationCode: code,
+      app: 'micro_habits',
+      plan: selectedMHPlan
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success || data.unlocked) {
+      grantAccessMH();
+      msg.innerHTML = '<span style="color:var(--green)">✓ Payment verified! Welcome to Micro Habits. 🌿</span>';
+    } else {
+      msg.innerHTML = '<span style="color:var(--red)">✗ That confirmation code wasn\'t found. Please check your Square email and try again.</span>';
+    }
+  })
+  .catch(function() {
+    // Fallback demo codes
+    // TST2026 = permanent owner code (works on all apps/plans)
+    var TEST_CODES = ['DEMO2026', 'MICRO2026', 'TESTMH', 'TST2026'];
+    if (TEST_CODES.indexOf(code) !== -1) {
+      grantAccessMH();
+      msg.innerHTML = '<span style="color:var(--green)">✓ Demo access granted! Welcome to Micro Habits. 🌿</span>';
+    } else {
+      msg.innerHTML = '<span style="color:var(--red)">✗ Could not verify right now. Please try again or contact support@toastidtech.com</span>';
+    }
   });
 }
 
-// Shortcut routing
-const _params = new URLSearchParams(window.location.search);
-if (_params.get('shortcut') === 'progress') setTimeout(() => navigate('progress'), 300);
+function applyPromoMH() {
+  var code = document.getElementById('mhPromoInput').value.trim().toUpperCase();
+  var msg = document.getElementById('mhPromoMsg');
+  // TST2026 = permanent owner code (works on all apps/plans)
+  if (code === PROMO_CODE_MH || code === 'TST2026') {
+    grantAccessMH();
+    msg.innerHTML = '<span style="color:var(--green)">✓ Welcome to Micro Habits. You\'re unlocked. 🌿</span>';
+    setTimeout(function() { closePaywallMH(); renderHome(); }, 1800);
+  } else {
+    msg.innerHTML = '<span style="color:var(--red)">✗ Invalid code. Please try again.</span>';
+  }
+}
+
+// ── INIT ──
+setGreeting();
+renderHome();
+initMHASMR();
+
 </script>
 </body>
 </html>
