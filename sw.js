@@ -1,4 +1,4 @@
-const CACHE_NAME = 'micro-habits-v5'; // bump this on every deploy to bust stale caches
+const CACHE_NAME = 'micro-habits-v6'; // bump this on every deploy to bust stale caches
 const PRECACHE_URLS = ['./', './index.html'];
 
 self.addEventListener('install', e => {
