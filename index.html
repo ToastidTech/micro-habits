@@ -105,16 +105,11 @@
     display: flex; align-items: center; gap: 10px;
   }
 
-  .logo-leaf {
-    width: 32px; height: 32px;
-    background: linear-gradient(135deg, var(--fern), var(--sage));
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 12px rgba(106,171,126,0.3);
+  .logo-mark-img {
+    width: 34px; height: 34px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(106,171,126,0.35));
   }
-
-  .logo-leaf span { transform: rotate(45deg); font-size: 14px; }
 
   .logo-text {
     font-family: 'Playfair Display', serif;
@@ -739,6 +734,7 @@
   }
 
   .modal-icon { font-size: 44px; text-align: center; margin-bottom: 12px; }
+  .modal-icon-img { width: 56px; height: 56px; display: block; margin: 0 auto 12px; object-fit: contain; }
 
   .modal-title {
     font-family: 'Playfair Display', serif;
@@ -885,7 +881,7 @@
   <div id="screen-home" class="screen active">
     <div class="app-header">
       <div class="logo-mark">
-        <div class="logo-leaf"><span>🌿</span></div>
+        <img src="icons/icon-96.png" alt="Micro Habits" class="logo-mark-img">
         <span class="logo-text">Micro Habits</span>
       </div>
       <div class="header-streak" id="streak-display">🔥 <span id="streak-num">0</span> day streak</div>
@@ -1077,7 +1073,7 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px">
                 <span class="settings-item-value">7:00 AM</span>
-                <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+                <button class="toggle on" data-key="morningReminder" onclick="toggleSetting(this)"></button>
               </div>
             </div>
             <div class="settings-item">
@@ -1087,7 +1083,7 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px">
                 <span class="settings-item-value">8:00 PM</span>
-                <button class="toggle" onclick="this.classList.toggle('on')"></button>
+                <button class="toggle" data-key="eveningReminder" onclick="toggleSetting(this)"></button>
               </div>
             </div>
           </div>
@@ -1108,14 +1104,14 @@
                 <div class="settings-item-icon">🔔</div>
                 <div class="settings-item-text">Sound Effects</div>
               </div>
-              <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              <button class="toggle on" data-key="soundEffects" onclick="toggleSetting(this)"></button>
             </div>
             <div class="settings-item">
               <div class="settings-item-left">
                 <div class="settings-item-icon">📳</div>
                 <div class="settings-item-text">Haptic Feedback</div>
               </div>
-              <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+              <button class="toggle on" data-key="hapticFeedback" onclick="toggleSetting(this)"></button>
             </div>
           </div>
         </div>
@@ -1182,7 +1178,7 @@
   <div class="modal-overlay" id="lead-modal">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
-      <div class="modal-icon">🌿</div>
+      <img src="icons/icon-96.png" alt="Micro Habits" class="modal-icon-img">
       <div class="modal-title">Welcome to<br>Micro Habits</div>
       <div class="modal-sub">5 minutes a day. Real change over time.<br>Enter your info to start your free journey.</div>
 
@@ -1246,9 +1242,9 @@
       </div>
 
       <div class="price-block">
-        <div class="price-main">$6.99</div>
-        <div class="price-period">per month · cancel anytime</div>
-        <div class="price-note">🎯 Less than a cup of coffee a week</div>
+        <div class="price-main">$24.99</div>
+        <div class="price-period">one-time payment · yours forever</div>
+        <div class="price-note">🎯 No subscription, no recurring charges</div>
       </div>
 
       <button class="premium-cta-btn" onclick="goToPremiumCheckout()">
@@ -1480,6 +1476,7 @@ const BADGES = [
 // ══════════════════════════════════════
 
 let state = loadState();
+let settings = loadSettings();
 let timerInterval = null;
 let timerRunning = false;
 let timerSeconds = 0;
@@ -1507,6 +1504,39 @@ function loadState() {
 
 function saveState() {
   try { localStorage.setItem('microhabits_state', JSON.stringify(state)); } catch(e) {}
+}
+
+function loadSettings() {
+  try {
+    const saved = localStorage.getItem('microhabits_settings');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return {
+    morningReminder: true,
+    eveningReminder: false,
+    soundEffects: true,
+    hapticFeedback: true
+  };
+}
+
+function saveSettings() {
+  try { localStorage.setItem('microhabits_settings', JSON.stringify(settings)); } catch(e) {}
+}
+
+function toggleSetting(btn) {
+  const key = btn.dataset.key;
+  if (!key) return;
+  btn.classList.toggle('on');
+  settings[key] = btn.classList.contains('on');
+  saveSettings();
+}
+
+function applySettingsToDOM() {
+  document.querySelectorAll('.toggle[data-key]').forEach(btn => {
+    const key = btn.dataset.key;
+    if (settings[key]) btn.classList.add('on');
+    else btn.classList.remove('on');
+  });
 }
 
 function todayStr() {
@@ -1541,6 +1571,7 @@ function navigate(screen) {
   if (screen === 'home') { renderHome(); renderPremiumBanner(); }
   if (screen === 'progress') renderProgress();
   if (screen === 'library') renderLibrary();
+  if (screen === 'profile') applySettingsToDOM();
 }
 
 function goBack() {
@@ -1564,7 +1595,8 @@ function renderHome() {
 function setGreeting() {
   const h = new Date().getHours();
   let g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('greeting-time').textContent = g;
+  const name = getUserName();
+  document.getElementById('greeting-time').textContent = name ? `${g}, ${name.split(' ')[0]}` : g;
 }
 
 function setQuote() {
@@ -1577,6 +1609,14 @@ function renderRituals() {
   const list = document.getElementById('rituals-list');
   const routineHabits = state.routine.map(id => HABITS_DB.find(h => h.id === id)).filter(Boolean);
   const filtered = currentFilter === 'all' ? routineHabits : routineHabits.filter(h => h.time === currentFilter);
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:24px;color:var(--mist);font-size:13px">
+      No rituals in your routine${currentFilter !== 'all' ? ' for this time of day' : ''}.
+      Add some from the Library tab.
+    </div>`;
+    return;
+  }
 
   list.innerHTML = filtered.map(habit => {
     const done = state.completedToday.includes(habit.id);
@@ -1599,32 +1639,36 @@ function renderRituals() {
   }).join('');
 }
 
-function filterByTime(time) {
+function filterByTime(time, evt) {
   currentFilter = time;
   document.querySelectorAll('.tod-pill').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
+  const e = evt || window.event;
+  if (e && e.target) e.target.classList.add('active');
   renderRituals();
 }
 
 function updateRing() {
-  const total = state.routine.length;
+  const total = state.routine.length || 1;
   const done = state.completedToday.length;
   const circ = 226;
   const offset = circ - (done / total) * circ;
   document.getElementById('progress-ring').style.strokeDashoffset = offset;
   document.getElementById('ring-done').textContent = done;
-  document.getElementById('ring-total').textContent = 'of ' + total;
+  document.getElementById('ring-total').textContent = 'of ' + state.routine.length;
 
+  const ring = document.getElementById('progress-ring');
   if (done === 0) {
     document.getElementById('ring-title').textContent = 'Start your rituals';
     document.getElementById('ring-subtitle').textContent = 'Just 5 minutes. You\'ve got this.';
+    ring.style.stroke = '';
   } else if (done < total) {
-    document.getElementById('ring-title').textContent = `${done} of ${total} complete`;
-    document.getElementById('ring-subtitle').textContent = `${total - done} ritual${total - done > 1 ? 's' : ''} remaining today.`;
+    document.getElementById('ring-title').textContent = `${done} of ${state.routine.length} complete`;
+    document.getElementById('ring-subtitle').textContent = `${state.routine.length - done} ritual${state.routine.length - done > 1 ? 's' : ''} remaining today.`;
+    ring.style.stroke = '';
   } else {
     document.getElementById('ring-title').textContent = '🎉 All done today!';
     document.getElementById('ring-subtitle').textContent = 'You\'ve completed all your rituals. Come back tomorrow!';
-    document.getElementById('progress-ring').style.stroke = '#c8a96e';
+    ring.style.stroke = '#c8a96e';
   }
 }
 
@@ -1642,6 +1686,7 @@ function updateStreakDisplay() {
 function startRitual(id) {
   const habit = HABITS_DB.find(h => h.id === id);
   if (!habit) return;
+  clearTimer();
   currentHabitId = id;
 
   document.getElementById('session-cat').textContent = habit.time.toUpperCase() + ' RITUAL';
@@ -1706,6 +1751,7 @@ function startTimer() {
 
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
+      timerInterval = null;
       timerRunning = false;
       completeRitual();
     }
@@ -1713,7 +1759,7 @@ function startTimer() {
 }
 
 function pauseTimer() {
-  clearInterval(timerInterval);
+  clearTimer();
   timerRunning = false;
   document.getElementById('timer-btn').textContent = '▶ Resume';
   document.getElementById('timer-phase').textContent = 'Paused';
@@ -1797,6 +1843,10 @@ function completeRitual() {
   document.getElementById('comp-streak').textContent = `🔥 ${state.streak} day streak`;
   document.getElementById('completion-overlay').classList.add('show');
 
+  if (settings.hapticFeedback && navigator.vibrate) {
+    navigator.vibrate(allDone ? [40,40,40,40,80] : [40]);
+  }
+
   spawnConfetti(allDone ? 60 : 30);
 }
 
@@ -1849,10 +1899,11 @@ function renderLibrary() {
   `).join('');
 }
 
-function filterCategory(cat) {
+function filterCategory(cat, evt) {
   currentCatFilter = cat;
   document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+  const e = evt || window.event;
+  if (e && e.target) e.target.classList.add('active');
   renderLibrary();
 }
 
@@ -1890,7 +1941,7 @@ function renderHeatmap() {
     const ds = d.toISOString().split('T')[0];
     const h = state.history.find(x => x.date === ds);
     const isToday = i === 0;
-    const cls = isToday ? 'today' : (h?.count >= state.routine.length ? 'perfect' : (h?.count > 0 ? 'done' : ''));
+    const cls = isToday ? 'today' : (h && h.count >= state.routine.length && state.routine.length > 0 ? 'perfect' : (h && h.count > 0 ? 'done' : ''));
     cells.push(`<div class="heatmap-day ${cls}" title="${ds}"></div>`);
   }
 
@@ -1929,7 +1980,10 @@ function showToast(msg) {
 // LEAD CAPTURE & PAYWALL
 // ══════════════════════════════════════
 
-const SQUARE_URL = 'https://square.link/u/aBodVmFr';
+// NOTE: This must point to a Square checkout link configured for a ONE-TIME
+// $24.99 charge, not the old $6.99/mo subscription link. Update in Square
+// dashboard and paste the new link below before shipping.
+const SQUARE_URL = 'https://square.link/u/aBodVmFr'; // ⚠ verify this is set to one-time $24.99 in Square
 const FORMSPREE_URL = 'https://formspree.io/f/xeeryaze';
 
 function isLeadCaptured() {
@@ -1996,15 +2050,25 @@ function renderPremiumBanner() {
   const banner = document.querySelector('.premium-banner');
   if (!banner) return;
   if (isPremiumUnlocked()) {
-    banner.innerHTML = \`
+    banner.innerHTML = `
       <div class="premium-text">
         <div class="premium-title">✨ Premium Active</div>
         <div class="premium-sub">Full access unlocked. Enjoy every ritual.</div>
       </div>
       <div style="font-size:22px">🏆</div>
-    \`;
+    `;
     banner.style.borderColor = 'rgba(106,171,126,0.35)';
     banner.style.background = 'linear-gradient(135deg,rgba(74,124,89,0.18),rgba(45,74,45,0.12))';
+  } else {
+    banner.innerHTML = `
+      <div class="premium-text">
+        <div class="premium-title">✨ Unlock Premium</div>
+        <div class="premium-sub">50+ rituals, custom routines, sleep tracking & more</div>
+      </div>
+      <button class="premium-cta" onclick="showPremiumModal()">$24.99</button>
+    `;
+    banner.style.borderColor = '';
+    banner.style.background = '';
   }
 }
 
@@ -2081,17 +2145,9 @@ document.getElementById('premium-modal').addEventListener('click', function(e) {
 // ══════════════════════════════════════
 
 checkNewDay();
+applySettingsToDOM();
 renderHome();
 renderPremiumBanner();
-
-// Personalise greeting if returning user
-const _savedName = getUserName();
-if (_savedName) {
-  const _h = new Date().getHours();
-  const _tod = _h < 12 ? 'Good morning' : _h < 17 ? 'Good afternoon' : 'Good evening';
-  const _greet = document.getElementById('greeting-time');
-  if (_greet) _greet.textContent = `${_tod}, ${_savedName.split(' ')[0]}`;
-}
 
 // Show lead capture on first visit (after short delay)
 if (!isLeadCaptured()) {
@@ -2108,36 +2164,31 @@ window.addEventListener('beforeinstallprompt', (e) => {
   }, 5000);
 });
 
-// Service Worker
+// Service Worker — registers a real sw.js file (see separate file).
+// The previous version built the worker from an in-memory Blob URL, which
+// silently fails to control the page / cache assets in most mobile browsers
+// (including installed PWAs on Android), so offline support never actually worked.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swCode = `
-      const CACHE_NAME = 'micro-habits-v2';
-      self.addEventListener('install', e => {
-        e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(['/'])));
-        self.skipWaiting();
-      });
-      self.addEventListener('activate', e => {
-        e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))));
-        self.clients.claim();
-      });
-      self.addEventListener('fetch', e => {
-        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(res => {
-          if (!res || res.status !== 200 || res.type !== 'basic') return res;
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return res;
-        })));
-      });
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
 }
 
 // Shortcut routing
 const _params = new URLSearchParams(window.location.search);
-if (_params.get('shortcut') === 'progress') setTimeout(() => navigate('progress'), 300);
+const _shortcut = _params.get('shortcut');
+if (_shortcut === 'progress') {
+  setTimeout(() => navigate('progress'), 300);
+} else if (_shortcut === 'morning') {
+  setTimeout(() => {
+    navigate('home');
+    currentFilter = 'morning';
+    document.querySelectorAll('.tod-pill').forEach(p => p.classList.remove('active'));
+    const morningPill = Array.from(document.querySelectorAll('.tod-pill')).find(p => p.textContent.includes('Morning'));
+    if (morningPill) morningPill.classList.add('active');
+    renderRituals();
+  }, 300);
+}
 </script>
 </body>
 </html>
