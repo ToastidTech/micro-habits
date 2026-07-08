@@ -2,7 +2,7 @@
   "name": "Micro Habits — Daily Wellness Rituals",
   "short_name": "Micro Habits",
   "description": "5-minute daily wellness rituals for a calmer, more intentional life.",
-  "start_url": "/",
+  "start_url": "/microhabits",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#1a2e1a",
